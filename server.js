@@ -3,11 +3,21 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
+const { createClient } = require("@supabase/supabase-js");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+// ==============================
+// Supabase
+// ==============================
+
+const supabase = createClient(
+    process.env.SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_ROLE_KEY
+);
 
 // ==============================
 // Home Route
@@ -28,14 +38,18 @@ app.post("/initialize-payment", async (req, res) => {
         const { email, amount, course, courseId } = req.body;
 
         if (!email || !amount) {
+
             return res.status(400).json({
                 success: false,
                 message: "Email and amount are required."
             });
+
         }
 
         const response = await axios.post(
+
             "https://api.paystack.co/transaction/initialize",
+
             {
                 email,
                 amount: Number(amount) * 100,
@@ -49,12 +63,14 @@ app.post("/initialize-payment", async (req, res) => {
                     "https://skillforgeacademy5-sys.github.io/skillforge-academy/success.html"
 
             },
+
             {
                 headers: {
                     Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
                     "Content-Type": "application/json"
                 }
             }
+
         );
 
         res.json({
@@ -76,6 +92,7 @@ app.post("/initialize-payment", async (req, res) => {
     }
 
 });
+
 // ==============================
 // Verify Payment
 // ==============================
@@ -87,19 +104,24 @@ app.post("/verify-payment", async (req, res) => {
         const { reference } = req.body;
 
         if (!reference) {
+
             return res.status(400).json({
                 status: false,
                 message: "Reference is required."
             });
+
         }
 
         const response = await axios.get(
+
             `https://api.paystack.co/transaction/verify/${reference}`,
+
             {
                 headers: {
                     Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`
                 }
             }
+
         );
 
         if (response.data.data.status === "success") {
@@ -117,16 +139,11 @@ app.post("/verify-payment", async (req, res) => {
 
     } catch (error) {
 
-        console.error("PAYSTACK VERIFY ERROR");
-
-        if (error.response) {
-            console.error(error.response.data);
-        } else {
-            console.error(error.message);
-        }
+        console.error(error.response?.data || error.message);
 
         res.status(500).json({
-            status: false
+            status: false,
+            message: "Verification failed."
         });
 
     }
@@ -137,40 +154,51 @@ app.post("/verify-payment", async (req, res) => {
 // Save Student
 // ==============================
 
-app.post("/save-student", (req, res) => {
+app.post("/save-student", async (req, res) => {
 
-    const { email, course, reference } = req.body;
+    try {
 
-    db.run(
-        `INSERT INTO students
-        (email, course, reference, payment_status)
-        VALUES (?, ?, ?, ?)`,
-        [
-            email,
-            course,
-            reference,
-            "paid"
-        ],
-        function (err) {
+        const { email, course, reference } = req.body;
 
-            if (err) {
+        const { data, error } = await supabase
 
-                console.log(err.message);
+            .from("students")
 
-                return res.status(500).json({
-                    success: false,
-                    error: err.message
-                });
+            .insert([
+                {
+                    email,
+                    course,
+                    reference,
+                    payment_status: "paid"
+                }
+            ])
 
-            }
+            .select();
 
-            res.json({
-                success: true,
-                studentId: this.lastID
+        if (error) {
+
+            return res.status(500).json({
+                success: false,
+                error: error.message
             });
 
         }
-    );
+
+        res.json({
+            success: true,
+            student: data[0]
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+
+    }
 
 });
 
@@ -178,24 +206,44 @@ app.post("/save-student", (req, res) => {
 // View Students
 // ==============================
 
-app.get("/students", (req, res) => {
+app.get("/students", async (req, res) => {
 
-    db.all(
-        "SELECT * FROM students ORDER BY id DESC",
-        [],
-        (err, rows) => {
+    try {
 
-            if (err) {
-                return res.status(500).json(err);
-            }
+        const { data, error } = await supabase
 
-            res.json(rows);
+            .from("students")
+
+            .select("*")
+
+            .order("created_at", { ascending: false });
+
+        if (error) {
+
+            return res.status(500).json({
+                success: false,
+                error: error.message
+            });
 
         }
-    );
+
+        res.json(data);
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+
+    }
 
 });
 
+// ==============================
+// Start Server
 // ==============================
 
 const PORT = process.env.PORT || 3000;

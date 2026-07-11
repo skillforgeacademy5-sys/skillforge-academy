@@ -20,10 +20,10 @@
   },
   "homepage": "https://github.com/skillforgeacademy5-sys/skillforge-academy#readme",
   "dependencies": {
+    "@supabase/supabase-js": "^2.110.2",
     "axios": "^1.18.1",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1"
   }
 }
-
