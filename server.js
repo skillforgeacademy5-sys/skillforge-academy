@@ -25,7 +25,7 @@ app.post("/initialize-payment", async (req, res) => {
 
     try {
 
-        const { email, amount } = req.body;
+        const { email, amount, course, courseId } = req.body;
 
         if (!email || !amount) {
             return res.status(400).json({
@@ -37,8 +37,17 @@ app.post("/initialize-payment", async (req, res) => {
         const response = await axios.post(
             "https://api.paystack.co/transaction/initialize",
             {
-                email: email,
-                amount: Number(amount) * 100
+                email,
+                amount: Number(amount) * 100,
+
+                metadata: {
+                    course,
+                    courseId
+                },
+
+                callback_url:
+                    "https://skillforgeacademy5-sys.github.io/skillforge-academy/success.html"
+
             },
             {
                 headers: {
@@ -57,13 +66,7 @@ app.post("/initialize-payment", async (req, res) => {
 
     } catch (error) {
 
-        console.error("PAYSTACK INITIALIZE ERROR");
-
-        if (error.response) {
-            console.error(error.response.data);
-        } else {
-            console.error(error.message);
-        }
+        console.error(error.response?.data || error.message);
 
         res.status(500).json({
             success: false,
@@ -73,7 +76,6 @@ app.post("/initialize-payment", async (req, res) => {
     }
 
 });
-
 // ==============================
 // Verify Payment
 // ==============================
