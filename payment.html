@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Complete Payment | SkillForge Academy</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+</head>
+
+<body>
+
+<section class="payment-page">
+
+    <h1>Complete Your Enrollment</h1>
+
+    <p>You're just one step away from joining SkillForge Academy.</p>
+
+    <div class="payment-card">
+
+        <h2 id="courseName">Loading Course...</h2>
+
+        <h3 id="coursePrice">₦0</h3>
+
+        <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            required
+        >
+
+        <button id="payButton">
+            🔒 Pay Securely
+        </button>
+
+        <p class="secure-note">
+            🔐 Secure payment powered by Paystack
+        </p>
+
+    </div>
+
+</section>
+
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script src="js/payment.js"></script>
+
+</body>
+
+</html>

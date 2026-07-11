@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses | SkillForge Academy</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+<header>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            SkillForge Academy
+        </div>
+
+        <div class="menu-toggle">
+            ☰
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="courses.html">Courses</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+
+        <a href="courses.html" class="btn">
+            Enroll Now
+        </a>
+
+    </nav>
+
+</header>
+
+<section class="courses-page">
+
+    <h1>Explore Our Premium Courses</h1>
+
+    <p>
+        Choose a course, complete your payment securely,
+        and begin your learning journey with SkillForge Academy.
+    </p>
+
+    <!-- Search -->
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="🔍 Search courses...">
+
+    </div>
+
+    <!-- Categories -->
+
+    <div class="course-categories">
+
+        <button class="category active">All</button>
+
+        <button class="category">Web3</button>
+
+        <button class="category">AI</button>
+
+        <button class="category">Business</button>
+
+    </div>
+
+    <!-- Courses -->
+
+    <div class="courses-grid">
+
+        <!-- Web3 Course -->
+
+        <div class="course-card web3">
+
+            <h3>🌐 Web3 Masterclass</h3>
+
+            <p>
+                Learn Web3, Crypto, DeFi, NFTs and Blockchain from beginner to advanced.
+            </p>
+
+            <details>
+
+                <summary>Course Details</summary>
+
+                <ul>
+                    <li>✅40+ HD Video Lessons</li>
+                    <li>✅Beginner to Advanced</li>
+                    <li>✅Telegram Community Access</li>
+                    <li>✅Certificate of Completion</li>
+                    <li>✅Lifetime Updates</li>
+                </ul>
+
+            </details>
+
+            <h4>₦25,000</h4>
+
+            <button
+                class="buy-btn"
+                data-course="Web3 Masterclass"
+                data-price="25000"
+                data-id="web3">
+
+                Buy Now
+
+            </button>
+
+        </div>
+
+        <!-- AI Course -->
+
+        <div class="course-card ai">
+
+            <h3>🤖 AI Productivity</h3>
+
+            <p>
+                Master ChatGPT and other AI tools to boost productivity and earn money online.
+            </p>
+
+            <details>
+
+                <summary>Course Details</summary>
+
+                <ul>
+                    <li>✅30+ AI Video Lessons</li>
+                    <li>✅Prompt Engineering</li>
+                    <li>✅Content Creation</li>
+                    <li>✅Automation Tools</li>
+                    <li>✅Lifetime Access</li>
+                </ul>
+
+            </details>
+
+            <h4>₦15,000</h4>
+
+            <button
+                class="buy-btn"
+                data-course="AI Productivity"
+                data-price="15000"
+                data-id="ai">
+
+                Buy Now
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<script src="js/script.js"></script>
+
+</body>
+
+</html>

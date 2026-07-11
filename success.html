@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Enrollment Successful | SkillForge Academy</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<section class="payment-success">
+
+<div class="success-card">
+
+<h1>🎉 Payment Successful!</h1>
+
+<p>
+Congratulations! Your enrollment has been confirmed.
+</p>
+
+<h2 id="courseTitle"></h2>
+
+<p class="success-text">
+We're preparing your course access.
+You'll receive your learning materials shortly.
+</p>
+
+<a href="index.html" class="btn">
+Return Home
+</a>
+
+</div>
+
+</section>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+
+document.getElementById("courseTitle").textContent =
+params.get("course");
+
+</script>
+
+</body>
+</html>

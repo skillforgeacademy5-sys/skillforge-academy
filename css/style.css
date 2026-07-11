@@ -1264,4 +1264,654 @@ transition:.3s;
 
 transform:translateY(-5px);
 
+}/*============================
+ COURSES PAGE HEADER
+=============================*/
+
+.courses-page{
+
+padding:120px 8% 70px;
+
+text-align:center;
+
+background:#F8FAFC;
+
+}
+
+.courses-page h1{
+
+font-size:48px;
+
+margin-bottom:20px;
+
+color:#1E293B;
+
+}
+
+.courses-page p{
+
+font-size:18px;
+
+max-width:700px;
+
+margin:auto;
+
+line-height:1.8;
+
+color:#64748B;
+
+}/* SEARCH BAR */
+
+.search-box{
+    display:flex;
+    justify-content:center;
+    margin:40px 0 25px;
+}
+
+.search-box input{
+    width:600px;
+    max-width:90%;
+    padding:15px 20px;
+    border:2px solid #E2E8F0;
+    border-radius:10px;
+    font-size:16px;
+    outline:none;
+}
+
+.course-categories{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.category{
+    padding:12px 24px;
+    background:#E2E8F0;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    font-weight:600;
+    transition:.3s;
+}
+
+.category:hover,
+.category.active{
+    background:#2563EB;
+    color:white;
+}.search-box {
+    display: flex !important;
+    justify-content: center !important;
+    margin: 40px 0 !important;
+}
+
+.search-box input {
+    width: 600px !important;
+    max-width: 90% !important;
+    padding: 15px 20px !important;
+    border: 2px solid #2563EB !important;
+    border-radius: 10px !important;
+    font-size: 16px !important;
+}
+
+.course-categories {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 15px !important;
+    margin-top: 25px !important;
+}
+
+.category {
+    padding: 12px 22px !important;
+    background: #2563EB !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 30px !important;
+    cursor: pointer !important;
+}/* ==========================
+   COURSE CARDS
+========================== */
+
+.courses-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+
+gap:30px;
+
+margin-top:50px;
+
+}
+
+.course-card{
+
+background:#ffffff;
+
+padding:30px;
+
+border-radius:15px;
+
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+text-align:center;
+
+transition:.3s;
+
+}
+
+.course-card:hover{
+
+transform:translateY(-10px);
+
+}
+
+.course-card h3{
+
+font-size:30px;
+
+margin-bottom:20px;
+
+color:#0F172A;
+
+}
+
+.course-card p{
+
+font-size:17px;
+
+color:#64748B;
+
+line-height:1.7;
+
+margin-bottom:20px;
+
+}
+
+.course-card h4{
+
+font-size:35px;
+
+color:#2563EB;
+
+margin-bottom:25px;
+
+}
+
+.buy-btn{
+
+background:#2563EB;
+
+color:white;
+
+border:none;
+
+padding:15px 35px;
+
+border-radius:8px;
+
+font-size:16px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.buy-btn:hover{
+
+background:#1D4ED8;
+
+transform:scale(1.05);
+
+}/* ==========================
+   COURSE DETAILS
+========================== */
+
+.course-card details{
+
+    margin:20px 0;
+
+    text-align:left;
+
+    background:#F8FAFC;
+
+    border:1px solid #E2E8F0;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+}
+
+.course-card summary{
+
+    padding:15px 20px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+    color:#2563EB;
+
+    font-size:17px;
+
+    list-style:none;
+
+    transition:.3s;
+
+}
+
+.course-card summary:hover{
+
+    background:#EFF6FF;
+
+}
+
+.course-card summary::after{
+
+    content:" ▼";
+
+    float:right;
+
+    transition:.3s;
+
+}
+
+.course-card details[open] summary::after{
+
+    content:" ▲";
+
+}
+
+.course-card ul{
+
+    padding:15px 30px 20px;
+
+    margin:0;
+
+}
+
+.course-card li{
+
+    margin:12px 0;
+
+    color:#475569;
+
+    line-height:1.6;
+
+}.course-card details{
+
+transition:.4s;
+
+}
+
+.course-card details:hover{
+
+box-shadow:0 8px 20px rgba(37,99,235,.15);
+
+}/* ==========================
+   PAYMENT PAGE
+========================== */
+
+.payment-page{
+
+min-height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+flex-direction:column;
+
+background:#F8FAFC;
+
+padding:40px;
+
+}
+
+.payment-page h1{
+
+font-size:42px;
+
+margin-bottom:15px;
+
+color:#1E293B;
+
+}
+
+.payment-page p{
+
+margin-bottom:40px;
+
+color:#64748B;
+
+font-size:18px;
+
+text-align:center;
+
+}
+
+.payment-card{
+
+background:white;
+
+padding:40px;
+
+border-radius:20px;
+
+box-shadow:0 15px 35px rgba(0,0,0,.08);
+
+width:100%;
+
+max-width:500px;
+
+text-align:center;
+
+}
+
+.payment-card h2{
+
+font-size:28px;
+
+margin-bottom:20px;
+
+color:#1E293B;
+
+}
+
+.payment-card h3{
+
+font-size:40px;
+
+color:#2563EB;
+
+margin-bottom:30px;
+
+}
+
+.payment-card input{
+
+width:100%;
+
+padding:16px;
+
+margin-bottom:25px;
+
+border:2px solid #E2E8F0;
+
+border-radius:10px;
+
+font-size:16px;
+
+}
+
+#payButton{
+
+width:100%;
+
+padding:18px;
+
+background:#2563EB;
+
+color:white;
+
+border:none;
+
+border-radius:10px;
+
+font-size:18px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+#payButton:hover{
+
+background:#1D4ED8;
+
+}.payment-card{
+
+    max-width:500px;
+
+    margin:50px auto;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.08);
+
+    text-align:center;
+
+}
+
+.payment-card input{
+
+    width:100%;
+
+    padding:16px;
+
+    border:2px solid #E2E8F0;
+
+    border-radius:12px;
+
+    margin:25px 0;
+
+    font-size:16px;
+
+}
+
+#payButton{
+
+    width:100%;
+
+    padding:18px;
+
+    background:#2563EB;
+
+    color:white;
+
+    border:none;
+
+    border-radius:12px;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+#payButton:hover{
+
+    background:#1D4ED8;
+
+}
+
+.secure-note{
+
+    margin-top:20px;
+
+    color:#64748B;
+
+    font-size:14px;
+
+}/* ==========================
+SUCCESS PAGE
+========================== */
+
+.payment-success{
+
+min-height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+background:#F8FAFC;
+
+padding:40px;
+
+}
+
+.success-card{
+
+background:white;
+
+padding:60px;
+
+border-radius:25px;
+
+text-align:center;
+
+max-width:650px;
+
+width:100%;
+
+box-shadow:0 20px 40px rgba(0,0,0,.08);
+
+}
+
+.success-card h1{
+
+font-size:48px;
+
+color:#16A34A;
+
+margin-bottom:25px;
+
+}
+
+.success-card h2{
+
+font-size:34px;
+
+margin:25px 0;
+
+color:#2563EB;
+
+}
+
+.success-text{
+
+font-size:18px;
+
+line-height:1.8;
+
+margin-bottom:40px;
+
+}/*==========================
+DASHBOARD
+==========================*/
+
+.dashboard{
+
+padding:130px 8%;
+
+background:#F8FAFC;
+
+min-height:100vh;
+
+}
+
+.dashboard h1{
+
+font-size:48px;
+
+margin-bottom:15px;
+
+}
+
+.dashboard p{
+
+color:#64748B;
+
+margin-bottom:50px;
+
+}
+
+.dashboard-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+
+gap:30px;
+
+}
+
+.dashboard-card{
+
+background:white;
+
+padding:35px;
+
+border-radius:18px;
+
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+transition:.3s;
+
+}
+
+.dashboard-card:hover{
+
+transform:translateY(-8px);
+
+}
+
+.dashboard-card h2{
+
+margin-bottom:20px;
+
+font-size:28px;
+
+}
+
+.dashboard-card p{
+
+margin-bottom:25px;
+
+}
+
+.dashboard-card .btn{
+
+display:inline-block;
+
+}
+
+.locked{
+
+opacity:.65;
+
+}
+
+.locked button{
+
+padding:15px 30px;
+
+border:none;
+
+background:#CBD5E1;
+
+border-radius:10px;
+
+cursor:not-allowed;
+
 }
