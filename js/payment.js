@@ -17,7 +17,7 @@ document.getElementById("coursePrice").textContent =
 // ============================
 
 const BACKEND =
-"https://opulent-space-chainsaw-p77g99pv6pv43rp79-3000.app.github.dev/";
+"https://skillforge-api-octq.onrender.com";
 
 // ============================
 // Payment
