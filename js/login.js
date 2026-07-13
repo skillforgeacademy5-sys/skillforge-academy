@@ -1,6 +1,6 @@
-const loginForm = document.getElementById("loginForm");
+const form = document.getElementById("loginForm");
 
-loginForm.addEventListener("submit", async (e) => {
+form.addEventListener("submit", async (e) => {
 
 e.preventDefault();
 
@@ -8,7 +8,7 @@ const email = document.getElementById("email").value;
 
 const password = document.getElementById("password").value;
 
-const { error } = await supabase.auth.signInWithPassword({
+const { data, error } = await supabase.auth.signInWithPassword({
 
 email,
 
@@ -24,6 +24,6 @@ return;
 
 }
 
-window.location.href = "dashboard.html";
+window.location = "dashboard.html";
 
 });
