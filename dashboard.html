@@ -25,11 +25,11 @@
 
 </div>
 
-<button class="btn" onclick="logout()">
+<button id="logoutBtn" class="btn">
 
-    Logout
+Logout
 
-    </button>
+</button>
 
 </nav>
 
@@ -51,7 +51,9 @@ Continue learning where you left off.
 
 <div class="dashboard-grid">
 
-<div class="dashboard-card">
+<!-- WEB3 -->
+
+<div class="dashboard-card" id="web3Card">
 
 <h2>
 
@@ -65,7 +67,7 @@ Blockchain • Crypto • DeFi • NFTs
 
 </p>
 
-<a href="course.html?id=web3" class="btn">
+<a href="course.html?id=web3" class="btn" id="web3Btn">
 
 Continue Learning
 
@@ -73,7 +75,9 @@ Continue Learning
 
 </div>
 
-<div class="dashboard-card">
+<!-- AI -->
+
+<div class="dashboard-card" id="aiCard">
 
 <h2>
 
@@ -87,13 +91,15 @@ ChatGPT • Automation • AI Business
 
 </p>
 
-<a href="course.html?id=ai" class="btn">
+<a href="course.html?id=ai" class="btn" id="aiBtn">
 
 Continue Learning
 
 </a>
 
 </div>
+
+<!-- COMING SOON -->
 
 <div class="dashboard-card locked">
 
@@ -120,33 +126,13 @@ Coming Soon
 </div>
 
 </section>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
 <script src="js/supabase.js"></script>
 
-<script>
+<script src="js/dashboard.js"></script>
 
-async function checkUser(){
-
-const { data } = await supabase.auth.getUser();
-
-if(!data.user){
-
-window.location.href="login.html";
-
-}
-
-}
-
-checkUser();
-async function logout(){
-
-await supabase.auth.signOut();
-
-window.location.href="login.html";
-
-}
-</script>
 </body>
 
 </html>
