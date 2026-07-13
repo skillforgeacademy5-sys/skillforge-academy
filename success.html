@@ -1,51 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Enrollment Successful | SkillForge Academy</title>
+    <title>Enrollment Successful | SkillForge Academy</title>
 
-<link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 
 <body>
 
-<section class="payment-success">
+    <section class="payment-success">
 
-<div class="success-card">
+        <div class="success-card">
 
-<h1>🎉 Payment Successful!</h1>
+            <h1>🎉 Payment Successful!</h1>
 
-<p>
-Congratulations! Your enrollment has been confirmed.
-</p>
+            <p>
+                Thank you for enrolling in SkillForge Academy.
+            </p>
 
-<h2 id="courseTitle"></h2>
+            <h2 id="courseTitle">
+                Verifying your payment...
+            </h2>
 
-<p class="success-text">
-We're preparing your course access.
-You'll receive your learning materials shortly.
-</p>
+            <p class="success-text" id="statusText">
+                Please wait while we confirm your payment and register your enrollment.
+            </p>
 
-<a href="index.html" class="btn">
-Return Home
-</a>
+            <a href="index.html" class="btn">
+                Return Home
+            </a>
 
-</div>
+        </div>
 
-</section>
+    </section>
 
-<script>
+    <script>
 
-const params = new URLSearchParams(window.location.search);
+        const params = new URLSearchParams(window.location.search);
 
-document.getElementById("courseTitle").textContent =
-params.get("course");
+        const reference = params.get("reference");
 
-</script>
+        async function verifyPayment() {
+
+            if (!reference) {
+
+                document.getElementById("statusText").textContent =
+                    "No payment reference found.";
+
+                return;
+
+            }
+
+            try {
+
+                const response = await fetch(
+                    "https://skillforge-api-octq.onrender.com/verify-payment",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            reference: reference
+                        })
+                    }
+                );
+
+                const data = await response.json();
+
+                if (data.status) {
+
+                    const payment = data.payment;
+
+                    document.getElementById("courseTitle").textContent =
+                        payment.metadata.course;
+
+                    document.getElementById("statusText").innerHTML =
+                        `
+                        ✅ Your payment has been verified.<br><br>
+                        Student: <strong>${payment.customer.email}</strong><br>
+                        Course: <strong>${payment.metadata.course}</strong><br>
+                        Reference: <strong>${payment.reference}</strong>
+                        `;
+
+                    // Save student to database
+                    await fetch(
+                        "https://skillforge-api-octq.onrender.com/save-student",
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                email: payment.customer.email,
+                                course: payment.metadata.course,
+                                reference: payment.reference
+                            })
+                        }
+                    );
+
+                } else {
+
+                    document.getElementById("courseTitle").textContent =
+                        "Verification Failed";
+
+                    document.getElementById("statusText").textContent =
+                        "Your payment could not be verified.";
+
+                }
+
+            } catch (error) {
+
+                console.error(error);
+
+                document.getElementById("courseTitle").textContent =
+                    "Server Error";
+
+                document.getElementById("statusText").textContent =
+                    "Could not connect to the SkillForge server.";
+
+            }
+
+        }
+
+        verifyPayment();
+
+    </script>
 
 </body>
+
 </html>
