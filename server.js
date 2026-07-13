@@ -10,26 +10,26 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// ==============================
+// =======================================
 // Supabase
-// ==============================
+// =======================================
 
 const supabase = createClient(
     process.env.SUPABASE_URL,
     process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-// ==============================
+// =======================================
 // Home Route
-// ==============================
+// =======================================
 
 app.get("/", (req, res) => {
     res.send("✅ SkillForge Backend is running...");
 });
 
-// ==============================
-// Initialize Payment
-// ==============================
+// =======================================
+// Initialize Paystack Payment
+// =======================================
 
 app.post("/initialize-payment", async (req, res) => {
 
@@ -38,12 +38,10 @@ app.post("/initialize-payment", async (req, res) => {
         const { email, amount, course, courseId } = req.body;
 
         if (!email || !amount) {
-
             return res.status(400).json({
                 success: false,
                 message: "Email and amount are required."
             });
-
         }
 
         const response = await axios.post(
@@ -61,7 +59,6 @@ app.post("/initialize-payment", async (req, res) => {
 
                 callback_url:
                     "https://skillforgeacademy5-sys.github.io/skillforge-academy/success.html"
-
             },
 
             {
@@ -86,16 +83,16 @@ app.post("/initialize-payment", async (req, res) => {
 
         res.status(500).json({
             success: false,
-            message: "Could not initialize payment."
+            message: "Payment initialization failed."
         });
 
     }
 
 });
 
-// ==============================
+// =======================================
 // Verify Payment
-// ==============================
+// =======================================
 
 app.post("/verify-payment", async (req, res) => {
 
@@ -106,7 +103,7 @@ app.post("/verify-payment", async (req, res) => {
         if (!reference) {
 
             return res.status(400).json({
-                status: false,
+                success: false,
                 message: "Reference is required."
             });
 
@@ -124,17 +121,43 @@ app.post("/verify-payment", async (req, res) => {
 
         );
 
-        if (response.data.data.status === "success") {
+        if (response.data.data.status !== "success") {
 
             return res.json({
-                status: true,
-                payment: response.data.data
+                success: false
             });
 
         }
 
+        const payment = response.data.data;
+
+        // =======================================
+        // Save student into Supabase
+        // =======================================
+
+        const { error } = await supabase
+            .from("students")
+            .insert([
+                {
+                    email: payment.customer.email,
+                    course: payment.metadata.course,
+                    reference: payment.reference,
+                    payment_status: "paid"
+                }
+            ]);
+
+        if (error) {
+            console.log(error);
+
+            return res.status(500).json({
+                success: false,
+                message: error.message
+            });
+        }
+
         res.json({
-            status: false
+            success: true,
+            payment
         });
 
     } catch (error) {
@@ -142,7 +165,7 @@ app.post("/verify-payment", async (req, res) => {
         console.error(error.response?.data || error.message);
 
         res.status(500).json({
-            status: false,
+            success: false,
             message: "Verification failed."
         });
 
@@ -150,72 +173,17 @@ app.post("/verify-payment", async (req, res) => {
 
 });
 
-// ==============================
-// Save Student
-// ==============================
-
-app.post("/save-student", async (req, res) => {
-
-    try {
-
-        const { email, course, reference } = req.body;
-
-        const { data, error } = await supabase
-
-            .from("students")
-
-            .insert([
-                {
-                    email,
-                    course,
-                    reference,
-                    payment_status: "paid"
-                }
-            ])
-
-            .select();
-
-        if (error) {
-
-            return res.status(500).json({
-                success: false,
-                error: error.message
-            });
-
-        }
-
-        res.json({
-            success: true,
-            student: data[0]
-        });
-
-    } catch (error) {
-
-        console.error(error);
-
-        res.status(500).json({
-            success: false,
-            error: error.message
-        });
-
-    }
-
-});
-
-// ==============================
+// =======================================
 // View Students
-// ==============================
+// =======================================
 
 app.get("/students", async (req, res) => {
 
     try {
 
         const { data, error } = await supabase
-
             .from("students")
-
             .select("*")
-
             .order("created_at", { ascending: false });
 
         if (error) {
@@ -242,9 +210,9 @@ app.get("/students", async (req, res) => {
 
 });
 
-// ==============================
+// =======================================
 // Start Server
-// ==============================
+// =======================================
 
 const PORT = process.env.PORT || 3000;
 
