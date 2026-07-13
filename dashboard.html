@@ -25,11 +25,11 @@
 
 </div>
 
-<a href="index.html" class="btn">
+<button class="btn" onclick="logout()">
 
-Logout
+    Logout
 
-</a>
+    </button>
 
 </nav>
 
@@ -120,7 +120,33 @@ Coming Soon
 </div>
 
 </section>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
+<script src="js/supabase.js"></script>
+
+<script>
+
+async function checkUser(){
+
+const { data } = await supabase.auth.getUser();
+
+if(!data.user){
+
+window.location.href="login.html";
+
+}
+
+}
+
+checkUser();
+async function logout(){
+
+await supabase.auth.signOut();
+
+window.location.href="login.html";
+
+}
+</script>
 </body>
 
 </html>

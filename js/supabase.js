@@ -18,3 +18,7 @@ const supabase = window.supabase.createClient(
 window.supabaseClient = supabase;
 
 console.log("✅ Connected to Supabase");
+const supabase = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+    );
