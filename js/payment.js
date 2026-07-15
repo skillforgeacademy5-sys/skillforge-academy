@@ -47,7 +47,7 @@ payButton.addEventListener("click", async () => {
             body: JSON.stringify({
                 email,
                 amount: Number(price),
-                course,
+                courseName: course,
                 courseId,
             }),
         });

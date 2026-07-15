@@ -97,10 +97,13 @@ app.post("/initialize-payment", async (req, res) => {
         const {
             email,
             amount,
-            courseName,
+            courseName: courseNameFromBody,
+            course,
             courseId,
             telegramLink
         } = req.body;
+
+        const courseName = courseNameFromBody || course;
 
         if (!email || !amount || !courseName || !courseId) {
 
