@@ -1,9 +1,18 @@
 require("dotenv").config();
 
 const express = require("express");
-const cors = require("cors");
+const cors = require("cors"); 
 const axios = require("axios");
 const { createClient } = require("@supabase/supabase-js");
+
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+// ======================================
+// Environment Variables
+// ======================================
 
 const requiredEnvs = [
     "SUPABASE_URL",
@@ -11,52 +20,95 @@ const requiredEnvs = [
     "PAYSTACK_SECRET_KEY"
 ];
 
-const missingEnvs = requiredEnvs.filter((key) => !process.env[key]);
+const missing = requiredEnvs.filter((key) => !process.env[key]);
 
-if (missingEnvs.length > 0) {
-    console.error(
-        `Missing required environment variables: ${missingEnvs.join(", ")}`
-    );
+if (missing.length > 0) {
+    console.error("Missing Environment Variables:", missing.join(", "));
     process.exit(1);
 }
 
-const app = express();
-
-app.use(cors());
-app.use(express.json());
-
-// =======================================
+// ======================================
 // Supabase
-// =======================================
+// ======================================
 
 const supabase = createClient(
     process.env.SUPABASE_URL,
     process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-// =======================================
+// ======================================
+// SkillForge Settings
+// ======================================
+
+const SETTINGS = {
+    dashboard: "https://skillforgeacademy5-sys.github.io/skillforge-academy/dashboard.html",
+    success: "https://skillforgeacademy5-sys.github.io/skillforge-academy/success.html",
+    academyName: "SkillForge Digital Academy",
+    supportEmail: "skillforgeacademy5@gmail.com",
+    supportPhone: "+234xxxxxxxxxx"
+};
+
+// ======================================
 // Home Route
-// =======================================
+// ======================================
 
 app.get("/", (req, res) => {
-    res.send("✅ SkillForge Backend is running...");
+    res.send({
+        success: true,
+        message: "SkillForge Backend Running Successfully 🚀"
+    });
 });
 
-// =======================================
-// Initialize Paystack Payment
-// =======================================
+// ======================================
+// Helper Function
+// ======================================
+
+async function savePurchase(payment) {
+    const purchase = {
+        email: payment.customer.email,
+        course_id: payment.metadata.courseId,
+        course_name: payment.metadata.courseName,
+        amount: payment.amount / 100,
+        reference: payment.reference,
+        payment_status: "paid",
+        purchase_date: new Date().toISOString()
+    };
+
+    const { data, error } = await supabase
+        .from("purchases")
+        .insert([purchase])
+        .select();
+
+    if (error) {
+        throw error;
+    }
+
+    return data[0];
+}
+
+// ======================================
+// Initialize Payment
+// ======================================
 
 app.post("/initialize-payment", async (req, res) => {
 
     try {
 
-        const { email, amount, course, courseId } = req.body;
+        const {
+            email,
+            amount,
+            courseName,
+            courseId,
+            telegramLink
+        } = req.body;
 
-        if (!email || !amount) {
+        if (!email || !amount || !courseName || !courseId) {
+
             return res.status(400).json({
                 success: false,
-                message: "Email and amount are required."
+                message: "Missing required payment details."
             });
+
         }
 
         const response = await axios.post(
@@ -66,14 +118,12 @@ app.post("/initialize-payment", async (req, res) => {
             {
                 email,
                 amount: Number(amount) * 100,
-
                 metadata: {
-                    course,
-                    courseId
+                    courseId,
+                    courseName,
+                    telegramLink
                 },
-
-                callback_url:
-                    "https://skillforgeacademy5-sys.github.io/skillforge-academy/success.html"
+                callback_url: SETTINGS.success
             },
 
             {
@@ -85,29 +135,30 @@ app.post("/initialize-payment", async (req, res) => {
 
         );
 
-        res.json({
+        return res.json({
             success: true,
             authorization_url: response.data.data.authorization_url,
-            access_code: response.data.data.access_code,
             reference: response.data.data.reference
         });
 
     } catch (error) {
 
-        console.error(error.response?.data || error.message);
+        console.error(
+            error.response?.data || error.message
+        );
 
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
-            message: "Payment initialization failed."
+            message: "Unable to initialize payment."
         });
 
     }
 
 });
 
-// =======================================
+// ======================================
 // Verify Payment
-// =======================================
+// ======================================
 
 app.post("/verify-payment", async (req, res) => {
 
@@ -119,11 +170,12 @@ app.post("/verify-payment", async (req, res) => {
 
             return res.status(400).json({
                 success: false,
-                message: "Reference is required."
+                message: "Payment reference is required."
             });
 
         }
 
+        // Verify with Paystack
         const response = await axios.get(
 
             `https://api.paystack.co/transaction/verify/${reference}`,
@@ -136,103 +188,149 @@ app.post("/verify-payment", async (req, res) => {
 
         );
 
-        if (response.data.data.status !== "success") {
+        const payment = response.data.data;
+
+        if (payment.status !== "success") {
 
             return res.json({
-                success: false
+                success: false,
+                message: "Payment not successful."
             });
 
         }
 
-        const payment = response.data.data;
+        // Prevent duplicate purchases
+        const { data: existingPurchase } = await supabase
+            .from("purchases")
+            .select("id")
+            .eq("reference", payment.reference)
+            .maybeSingle();
 
-        // =======================================
-        // Save student into Supabase
-        // =======================================
+        if (existingPurchase) {
 
-        const { error } = await supabase
-            .from("students")
-            .insert([
-                {
-                    email: payment.customer.email,
-                    course: payment.metadata.course,
-                    reference: payment.reference,
-                    payment_status: "paid"
-                }
-            ]);
+            return res.json({
+                success: true,
+                message: "Purchase already verified.",
+                redirect: SETTINGS.dashboard
+            });
+
+        }
+
+        // Save purchase
+        const purchase = await savePurchase(payment);
+
+        return res.json({
+            success: true,
+            message: "Payment verified successfully.",
+            purchase,
+            redirect: SETTINGS.dashboard
+        });
+
+    } catch (error) {
+
+        console.error(
+            error.response?.data || error.message
+        );
+
+        return res.status(500).json({
+            success: false,
+            message: "Unable to verify payment."
+        });
+
+    }
+
+});
+
+// ======================================
+// Purchased Courses
+// ======================================
+
+app.get("/purchases/:email", async (req, res) => {
+
+    try {
+
+        const { email } = req.params;
+
+        const { data, error } = await supabase
+            .from("purchases")
+            .select("*")
+            .eq("email", email)
+            .order("purchase_date", { ascending: false });
 
         if (error) {
-            console.log(error);
-
             return res.status(500).json({
                 success: false,
                 message: error.message
             });
         }
 
-        res.json({
+        return res.json({
             success: true,
-            payment
+            purchases: data
         });
-
-    } catch (error) {
-
-        console.error(error.response?.data || error.message);
-
-        res.status(500).json({
-            success: false,
-            message: "Verification failed."
-        });
-
-    }
-
-});
-
-// =======================================
-// View Students
-// =======================================
-
-app.get("/students", async (req, res) => {
-
-    try {
-
-        const { data, error } = await supabase
-            .from("students")
-            .select("*")
-            .order("created_at", { ascending: false });
-
-        if (error) {
-
-            return res.status(500).json({
-                success: false,
-                error: error.message
-            });
-
-        }
-
-        res.json(data);
 
     } catch (error) {
 
         console.error(error);
 
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
-            error: error.message
+            message: "Unable to load purchases."
         });
 
     }
 
 });
 
-// =======================================
+// ======================================
+// Get Purchased Courses
+// ======================================
+
+app.get("/dashboard/:email", async (req, res) => {
+
+    try {
+
+        const { email } = req.params;
+
+        const { data, error } = await supabase
+            .from("purchases")
+            .select("*")
+            .eq("email", email)
+            .order("purchase_date", { ascending: false });
+
+        if (error) {
+            return res.status(500).json({
+                success: false,
+                message: error.message
+            });
+        }
+
+        return res.json({
+            success: true,
+            courses: data
+        });
+
+    } catch (err) {
+
+        console.error(err);
+
+        return res.status(500).json({
+            success: false,
+            message: "Unable to load dashboard."
+        });
+
+    }
+
+});
+
+// ======================================
 // Start Server
-// =======================================
+// ======================================
 
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
 
-    console.log(`🚀 Server running on port ${PORT}`);
+    console.log(`🚀 SkillForge API running on port ${PORT}`);
 
 });

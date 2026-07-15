@@ -3,124 +3,31 @@
 
 <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
 
-    <title>Enrollment Successful | SkillForge Academy</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="css/style.css">
+<title>Payment Successful</title>
+
+<link rel="stylesheet" href="css/style.css">
 
 </head>
 
 <body>
 
-    <section class="payment-success">
+<div class="container">
 
-        <div class="success-card">
+<h1>🎉 Payment Successful!</h1>
 
-            <h1>🎉 Payment Successful!</h1>
+<p id="status">
 
-            <p>
-                Thank you for enrolling in SkillForge Academy.
-            </p>
+Verifying your payment...
 
-            <h2 id="courseTitle">
-                Verifying your payment...
-            </h2>
+</p>
 
-            <p class="success-text" id="statusText">
-                Please wait while we confirm your payment and register your enrollment.
-            </p>
+</div>
 
-            <a href="index.html" class="btn">
-                Return Home
-            </a>
-
-        </div>
-
-    </section>
-
-    <script src="js/config.js"></script>
-    <script>
-
-        const params = new URLSearchParams(window.location.search);
-
-        const reference = params.get("reference");
-
-        const BACKEND = window.BACKEND_URL || "https://skillforge-api-octq.onrender.com";
-
-        async function verifyPayment() {
-
-            if (!reference) {
-
-                document.getElementById("statusText").textContent =
-                    "No payment reference found.";
-
-                return;
-
-            }
-
-            try {
-
-                const response = await fetch(
-                    `${BACKEND}/verify-payment`,
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                            reference: reference
-                        })
-                    }
-                );
-
-                const data = await response.json();
-
-                        if (data.success) {
-
-                    const payment = data.payment;
-                    const studentEmail = payment.customer?.email || "Unknown";
-                    const studentCourse = payment.metadata?.course || "Course";
-
-                    document.getElementById("courseTitle").textContent =
-                        studentCourse;
-
-                    document.getElementById("statusText").innerHTML =
-                        `
-                        ✅ Your payment has been verified.<br><br>
-                        Student: <strong>${studentEmail}</strong><br>
-                        Course: <strong>${studentCourse}</strong><br>
-                        Reference: <strong>${payment.reference}</strong>
-                        `;
-
-                } else {
-
-                    document.getElementById("courseTitle").textContent =
-                        "Verification Failed";
-
-                    document.getElementById("statusText").textContent =
-                        data.message || "Your payment could not be verified.";
-
-                }
-
-            } catch (error) {
-
-                console.error(error);
-
-                document.getElementById("courseTitle").textContent =
-                    "Server Error";
-
-                document.getElementById("statusText").textContent =
-                    "Could not connect to the SkillForge server.";
-
-            }
-
-        }
-
-        verifyPayment();
-
-    </script>
+<script src="js/success.js"></script>
 
 </body>
 
