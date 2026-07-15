@@ -2,36 +2,31 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Dashboard | SkillForge Academy</title>
 
 <link rel="stylesheet" href="css/style.css">
-
 </head>
 
 <body>
 
-<header>
-
-<nav class="navbar">
+<header class="navbar">
 
 <div class="logo">
-
 🎓 SkillForge Academy
-
 </div>
 
-<button id="logoutBtn" class="btn">
+<div>
 
+<span id="studentName"></span>
+
+<a id="logoutBtn" href="index.html" class="btn">
 Logout
+</a>
 
-</button>
-
-</nav>
+</div>
 
 </header>
 
@@ -39,99 +34,74 @@ Logout
 
 <h1>
 
-Welcome back 👋
+Welcome Back,
+
+<span id="studentNameTitle">
+
+Student
+
+</span>
+
+👋
 
 </h1>
 
 <p>
 
-Continue learning where you left off.
+Keep building your digital future.
 
 </p>
 
-<div class="dashboard-grid">
+<div class="stats">
 
-<!-- WEB3 -->
-
-<div class="dashboard-card" id="web3Card">
+<div class="card">
 
 <h2>
 
-🌐 Web3 Masterclass
+🔥
 
 </h2>
 
 <p>
 
-Blockchain • Crypto • DeFi • NFTs
+Welcome to SkillForge
 
 </p>
 
-<a href="course.html?id=web3" class="btn" id="web3Btn">
-
-Continue Learning
-
-</a>
-
 </div>
 
-<!-- AI -->
+<div class="card">
+<h2 id="courseCount">0</h2>
+<p>Courses</p>
+</div>
 
-<div class="dashboard-card" id="aiCard">
+<div class="card">
+<h2 id="certificateCount">0</h2>
+<p>Certificates</p>
+</div>
+
+<div class="card">
+<h2 id="progressPercent">0%</h2>
+<p>Progress</p>
+</div>
+
+</div>
 
 <h2>
-
-🤖 AI Productivity
-
+My Courses
 </h2>
 
-<p>
+<div id="courseContainer" class="dashboard-grid">
 
-ChatGPT • Automation • AI Business
-
-</p>
-
-<a href="course.html?id=ai" class="btn" id="aiBtn">
-
-Continue Learning
-
-</a>
-
-</div>
-
-<!-- COMING SOON -->
-
-<div class="dashboard-card locked">
-
-<h2>
-
-💼 Business Automation
-
-</h2>
-
-<p>
-
-Coming Soon
-
-</p>
-
-<button disabled>
-
-Coming Soon
-
-</button>
-
-</div>
+Loading courses...
 
 </div>
 
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-
 <script src="js/supabase.js"></script>
-
-<script src="js/dashboard.js"></script>
+<script type="module" src="js/dashboard.js"></script>
 
 </body>
 

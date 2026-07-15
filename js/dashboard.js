@@ -1,70 +1,148 @@
+const supabase = window.supabase;
+
 async function loadDashboard() {
+    const {
+        data: { session }
+    } = await supabase.auth.getSession();
 
-            // Check if the user is logged in
-                const {
-                        data: { session }
-                            } = await supabase.auth.getSession();
+    if (!session) {
+        window.location.href = "login.html";
+        return;
+    }
 
-                                if (!session) {
+    const user = session.user;
 
-                                        window.location = "login.html";
-                                                return;
+    const { data: student } = await supabase
+        .from("students")
+        .select("*")
+        .eq("email", user.email)
+        .single();
 
-                                                    }
+    document.getElementById("studentName").textContent =
+        student?.full_name || user.email;
 
-                                                        // Show student's name
-                                                            const fullname =
-                                                                    session.user.user_metadata.fullname || "Student";
+    document.getElementById("studentNameTitle").textContent =
+        student?.full_name || user.email;
 
-                                                                        document.querySelector("h1").innerHTML =
-                                                                                `Welcome back, ${fullname} 👋`;
+    const { data: purchases, error: purchaseError } = await supabase
+        .from("purchases")
+        .select("*")
+        .eq("email", user.email);
 
-                                                                                    // Hide all paid courses initially
-                                                                                        document.getElementById("web3Card").style.display = "none";
-                                                                                            document.getElementById("aiCard").style.display = "none";
+    if (purchaseError) {
+        console.error(purchaseError);
+        return;
+    }
 
-                                                                                                // Get purchases from Supabase
-                                                                                                    const { data, error } = await supabase
-                                                                                                            .from("purchases")
-                                                                                                                    .select("*")
-                                                                                                                            .eq("email", session.user.email)
-                                                                                                                                    .eq("payment_status", "paid");
+    document.getElementById("courseCount").textContent = purchases?.length || 0;
 
-                                                                                                                                        if (error) {
+    const { data: certificates, error: certificateError } = await supabase
+        .from("certificates")
+        .select("*")
+        .eq("user_id", user.id);
 
-                                                                                                                                                console.log(error);
-                                                                                                                                                        return;
+    if (certificateError) {
+        console.error(certificateError);
+    }
 
-                                                                                                                                                            }
+    document.getElementById("certificateCount").textContent =
+        certificates?.length || 0;
 
-                                                                                                                                                                // Unlock purchased courses
-                                                                                                                                                                    data.forEach((purchase) => {
+    const { data: completedLessons, error: completedError } = await supabase
+        .from("lesson_progress")
+        .select("*")
+        .eq("user_id", user.id)
+        .eq("completed", true);
 
-                                                                                                                                                                            if (purchase.course_id === "web3") {
+    if (completedError) {
+        console.error(completedError);
+    }
 
-                                                                                                                                                                                        document.getElementById("web3Card").style.display = "block";
+    const { data: allLessons, error: lessonsError } = await supabase
+        .from("course_lessons")
+        .select("*");
 
-                                                                                                                                                                                                }
+    if (lessonsError) {
+        console.error(lessonsError);
+    }
 
-                                                                                                                                                                                                        if (purchase.course_id === "ai") {
+    let progress = 0;
+    if (allLessons && allLessons.length > 0) {
+        progress = Math.round(
+            ((completedLessons?.length || 0) / allLessons.length) * 100
+        );
+    }
 
-                                                                                                                                                                                                                    document.getElementById("aiCard").style.display = "block";
+    document.getElementById("progressPercent").textContent = `${progress}%`;
 
-                                                                                                                                                                                                                            }
+    const container = document.getElementById("courseContainer");
+    container.innerHTML = "";
 
-                                                                                                                                                                                                                                });
+    if (!purchases || purchases.length === 0) {
+        container.innerHTML = `
+            <div class="dashboard-card">
+                <h3>No courses yet</h3>
+                <p>Purchase a course to begin learning.</p>
+                <a href="courses.html" class="btn">Browse Courses</a>
+            </div>
+        `;
+        return;
+    }
 
-                                                                                                                                                                                                                                }
+    purchases.forEach((course) => {
+        const card = document.createElement("div");
+        card.className = "dashboard-card";
+        card.innerHTML = `
+            <h3>
 
-                                                                                                                                                                                                                                // Load dashboard
-                                                                                                                                                                                                                                loadDashboard();
+            ${course.course_name}
 
-                                                                                                                                                                                                                                // Logout
-                                                                                                                                                                                                                                document.getElementById("logoutBtn").addEventListener("click", async () => {
+            </h3>
 
-                                                                                                                                                                                                                                    await supabase.auth.signOut();
+            <p>
 
-                                                                                                                                                                                                                                        window.location = "index.html";
+            Purchased Successfully
 
-                                                                                                                                                                                                                                        });
+            </p>
+
+            <div class="progress">
+
+            <div class="progress-fill"
+
+            style="width:${progress}%">
+
+            </div>
+
+            </div>
+
+            <p>
+
+            ${progress}% Complete
+
+            </p>
+
+            <a
+
+            href="course.html?id=${course.course_id}"
+
+            class="btn">
+
+            Continue Learning
+
+            </a>
+
+        `;
+        container.appendChild(card);
+    });
+}
+
+loadDashboard();
+
+const logoutBtn = document.getElementById("logoutBtn");
+if (logoutBtn) {
+    logoutBtn.addEventListener("click", async (event) => {
+        event.preventDefault();
+        await supabase.auth.signOut();
+        window.location.href = "index.html";
+    });
 }

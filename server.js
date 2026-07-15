@@ -5,6 +5,21 @@ const cors = require("cors");
 const axios = require("axios");
 const { createClient } = require("@supabase/supabase-js");
 
+const requiredEnvs = [
+    "SUPABASE_URL",
+    "SUPABASE_SERVICE_ROLE_KEY",
+    "PAYSTACK_SECRET_KEY"
+];
+
+const missingEnvs = requiredEnvs.filter((key) => !process.env[key]);
+
+if (missingEnvs.length > 0) {
+    console.error(
+        `Missing required environment variables: ${missingEnvs.join(", ")}`
+    );
+    process.exit(1);
+}
+
 const app = express();
 
 app.use(cors());

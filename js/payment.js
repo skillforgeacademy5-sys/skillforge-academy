@@ -17,7 +17,7 @@ document.getElementById("coursePrice").textContent =
 // Backend URL
 // ============================
 
-const BACKEND = "https://skillforge-api-octq.onrender.com";
+const BACKEND = window.BACKEND_URL || "https://skillforge-api-octq.onrender.com";
 
 // ============================
 // Payment

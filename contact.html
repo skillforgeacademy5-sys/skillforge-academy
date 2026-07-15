@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SkillForge Certificate</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+
+body{
+    background:#f5f7fb;
+        font-family:Arial,sans-serif;
+        }
+
+        .container{
+            max-width:900px;
+                margin:50px auto;
+                    padding:20px;
+                    }
+
+                    .certificate{
+                        background:white;
+                            border:10px solid gold;
+                                padding:50px;
+                                    text-align:center;
+                                        border-radius:15px;
+                                        }
+
+                                        .logo{
+                                            font-size:40px;
+                                            }
+
+                                            h1{
+                                                color:#0A2A66;
+                                                }
+
+                                                .studentName{
+                                                    font-size:32px;
+                                                        font-weight:bold;
+                                                            margin:25px 0;
+                                                            }
+
+                                                            .courseName{
+                                                                font-size:24px;
+                                                                    color:#444;
+                                                                    }
+
+                                                                    .certificateId{
+                                                                        margin-top:40px;
+                                                                            color:#666;
+                                                                            }
+
+                                                                            button{
+                                                                                margin-top:40px;
+                                                                                    padding:15px 30px;
+                                                                                        cursor:pointer;
+                                                                                        }
+
+                                                                                        </style>
+
+                                                                                        </head>
+
+                                                                                        <body>
+
+                                                                                        <div class="container">
+
+                                                                                        <div class="certificate">
+
+                                                                                        <div class="logo">
+                                                                                        🎓
+                                                                                        </div>
+
+                                                                                        <h1>SkillForge Digital Academy</h1>
+
+                                                                                        <h2>Certificate of Completion</h2>
+
+                                                                                        <p>This certifies that</p>
+
+                                                                                        <div id="studentName" class="studentName">
+                                                                                        Loading...
+                                                                                        </div>
+
+                                                                                        <p>has successfully completed</p>
+
+                                                                                        <div id="courseName" class="courseName"></div>
+
+                                                                                        <p class="certificateId">
+                                                                                        Certificate ID:
+                                                                                        <span id="certificateId"></span>
+                                                                                        </p>
+
+                                                                                        <button onclick="window.print()">
+                                                                                        Download / Print Certificate
+                                                                                        </button>
+
+                                                                                        </div>
+
+                                                                                        </div>
+
+                                                                                        <script src="js/supabase.js"></script>
+                                                                                        <script src="js/certificate-page.js"></script>
+
+                                                                                        </body>
+                                                                                        </html>

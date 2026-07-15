@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillForge Certificate</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .certificate {
+            background: white;
+            border: 10px solid #d4af37;
+            border-radius: 18px;
+            padding: 50px 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            position: relative;
+        }
+
+        .certificate::before,
+        .certificate::after {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.18);
+            top: -25px;
+        }
+
+        .certificate::before {
+            left: -25px;
+        }
+
+        .certificate::after {
+            right: -25px;
+        }
+
+        .logo {
+            width: 110px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #0A2A66;
+            margin-bottom: 8px;
+            font-size: 32px;
+            letter-spacing: 2px;
+        }
+
+        h2 {
+            color: #444;
+            margin-bottom: 24px;
+            font-size: 30px;
+        }
+
+        h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #1d3a80;
+        }
+
+        p {
+            color: #555;
+            margin: 14px 0;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        #studentName {
+            font-size: 34px;
+            font-weight: bold;
+            margin: 22px 0;
+            color: #0A2A66;
+        }
+
+        #courseName {
+            font-size: 26px;
+            color: #0A2A66;
+            margin: 18px 0;
+        }
+
+        .certificate-meta {
+            color: #555;
+            margin: 12px 0 4px;
+            font-size: 16px;
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            background: #ddd;
+            margin: 36px auto 24px;
+            width: 60%;
+        }
+
+        .signature-label {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 22px;
+        }
+
+        #downloadBtn {
+            margin-top: 20px;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            background: #0A2A66;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #downloadBtn:hover {
+            background: #123b8a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="certificate">
+            <img src="images/logo.png" class="logo" alt="SkillForge Logo">
+            <h1>CERTIFICATE OF COMPLETION</h1>
+            <p>This certifies that</p>
+            <h2 id="studentName">Loading...</h2>
+            <p>has successfully completed</p>
+            <h3 id="courseName">Loading...</h3>
+            <p>at</p>
+            <h2>SkillForge Digital Academy</h2>
+            <p class="certificate-meta">
+                Certificate ID:
+                <strong id="certificateId">Loading...</strong>
+            </p>
+            <p class="certificate-meta">
+                Issued:
+                <span id="issueDate"></span>
+            </p>
+            <hr>
+            <p class="signature-label">Instructor Signature</p>
+            <button id="downloadCertificate">Download Certificate</button>
+        </div>
+    </div>
+
+    <script src="js/supabase.js"></script>
+    <script src="js/certificate-page.js"></script>
+</body>
+</html>

@@ -15,10 +15,7 @@ const supabase = window.supabase.createClient(
 );
 
 // Make available everywhere
+window.supabase = supabase;
 window.supabaseClient = supabase;
 
 console.log("✅ Connected to Supabase");
-const supabase = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-    );
