@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+const brevo = require("@getbrevo/brevo");
 const express = require("express");
 const cors = require("cors"); 
 const axios = require("axios");
@@ -16,9 +17,10 @@ app.use(express.json());
 
 const requiredEnvs = [
     "SUPABASE_URL",
-    "SUPABASE_SERVICE_ROLE_KEY",
-    "PAYSTACK_SECRET_KEY"
-];
+        "SUPABASE_SERVICE_ROLE_KEY",
+            "PAYSTACK_SECRET_KEY",
+                "BREVO_API_KEY"
+                ];
 
 const missing = requiredEnvs.filter((key) => !process.env[key]);
 
@@ -35,7 +37,16 @@ const supabase = createClient(
     process.env.SUPABASE_URL,
     process.env.SUPABASE_SERVICE_ROLE_KEY
 );
+// ======================================
+// Brevo
+// ======================================
 
+const apiInstance = new brevo.TransactionalEmailsApi();
+
+apiInstance.setApiKey(
+    brevo.TransactionalEmailsApiApiKeys.apiKey,
+        process.env.BREVO_API_KEY
+        );
 // ======================================
 // SkillForge Settings
 // ======================================
