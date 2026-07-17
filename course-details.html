@@ -11,141 +11,102 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
 </head>
-<body class="details-page">
-    <header class="site-header">
-        <nav class="navbar">
-            <a class="logo" href="index.html">
-                <span class="logo-mark"><i class="fa-solid fa-bolt"></i></span>
+<body class="detail-body">
+    <div class="detail-shell">
+        <header class="detail-topbar">
+            <a class="brand-pill" href="index.html">
+                <span class="brand-icon"><i class="fa-solid fa-bolt"></i></span>
                 <span>SkillForge</span>
             </a>
-            <a href="dashboard.html" class="btn btn-secondary">Back to Dashboard</a>
-        </nav>
-    </header>
+            <a href="dashboard.html" class="ghost-btn"><i class="fa-solid fa-arrow-left"></i> Back to dashboard</a>
+        </header>
 
-    <main class="details-shell">
-        <section class="detail-hero hidden">
-            <div class="detail-hero-content">
-                <span class="section-kicker"><i class="fa-solid fa-award"></i> Your premium access portal</span>
-                <h1 id="detailTitle">Loading course...</h1>
-                <p id="detailDescription">Your purchased course is being prepared for you.</p>
-                <div class="detail-meta-grid">
-                    <div class="detail-stat-box">
-                        <i class="fa-solid fa-user-check"></i>
-                        <span id="detailInstructor">Instructor: SkillForge Team</span>
-                    </div>
-                    <div class="detail-stat-box">
-                        <i class="fa-solid fa-layer-group"></i>
-                        <span id="detailCategory">Category: Premium Course</span>
-                    </div>
-                    <div class="detail-stat-box">
-                        <i class="fa-solid fa-signal"></i>
-                        <span id="detailLevel">Level: Beginner to Advanced</span>
-                    </div>
-                    <div class="detail-stat-box">
-                        <i class="fa-solid fa-circle-check"></i>
-                        <span id="detailStatus">Payment Status: Confirmed</span>
+        <main class="detail-main">
+            <section class="detail-hero hidden">
+                <div class="detail-copy">
+                    <span class="eyebrow"><i class="fa-solid fa-award"></i> Course access portal</span>
+                    <h1 id="detailTitle">Loading course...</h1>
+                    <p id="detailDescription">Your purchased course is being prepared for you.</p>
+                    <div class="detail-badges">
+                        <span class="status-pill"><i class="fa-solid fa-circle-check"></i> Payment confirmed</span>
+                        <span class="status-pill soft"><i class="fa-solid fa-paper-plane"></i> Telegram delivery</span>
                     </div>
                 </div>
-            </div>
-            <div class="detail-hero-visual">
-                <img id="detailImage" src="images/default.jpg" alt="Course preview">
-            </div>
-        </section>
+                <div class="detail-visual">
+                    <img id="detailImage" src="images/default.jpg" alt="Course preview">
+                </div>
+            </section>
 
-        <section class="detail-section hidden">
-            <div class="section-heading">
-                <span class="section-kicker"><i class="fa-solid fa-compass"></i> Continue your learning journey</span>
-                <h2>Your course access is managed through the official SkillForge channels.</h2>
-                <p>This page is an access portal only. Lessons, PDFs, videos, and resources are delivered through the Telegram channel and bot.</p>
-            </div>
-
-            <div class="detail-grid">
-                <article class="detail-card">
-                    <div class="detail-icon"><i class="fa-brands fa-telegram"></i></div>
+            <section class="detail-actions hidden">
+                <a href="https://t.me/skillforgeweb3bot" target="_blank" rel="noreferrer" class="action-card action-card-primary">
+                    <div class="action-icon"><i class="fa-brands fa-telegram"></i></div>
                     <h3>Telegram Bot</h3>
-                    <p>Access your complete course inside the official Telegram Bot and continue learning in a guided flow.</p>
-                    <a href="https://t.me/skillforgeweb3bot" target="_blank" rel="noreferrer" class="btn btn-primary">Open Telegram Bot</a>
-                </article>
+                    <p>Access your complete course inside the official Telegram Bot.</p>
+                    <span class="action-link">Open Telegram Bot <i class="fa-solid fa-arrow-right"></i></span>
+                </a>
 
-                <article class="detail-card">
-                    <div class="detail-icon"><i class="fa-solid fa-bullhorn"></i></div>
+                <a href="https://t.me/skillforgeweb3bot" target="_blank" rel="noreferrer" class="action-card">
+                    <div class="action-icon"><i class="fa-solid fa-bullhorn"></i></div>
                     <h3>Official Course Channel</h3>
-                    <p>Visit the official channel for updates, announcements, and access to the learning environment managed by the academy.</p>
-                    <a href="https://t.me/skillforgeweb3bot" target="_blank" rel="noreferrer" class="btn btn-secondary">Open Course Channel</a>
-                </article>
+                    <p>Stay updated with announcements and the official learning channel.</p>
+                    <span class="action-link">Open Course Channel <i class="fa-solid fa-arrow-right"></i></span>
+                </a>
 
-                <article class="detail-card">
-                    <div class="detail-icon"><i class="fa-solid fa-users"></i></div>
+                <a href="https://t.me/skillforgeweb3bot" target="_blank" rel="noreferrer" class="action-card">
+                    <div class="action-icon"><i class="fa-solid fa-users"></i></div>
                     <h3>SkillForge Community</h3>
-                    <p>Network with learners, ask questions, share progress, and discover new opportunities.</p>
-                    <a href="https://t.me/skillforgeweb3bot" target="_blank" rel="noreferrer" class="btn btn-secondary">Join Community</a>
-                </article>
+                    <p>Network, ask questions, and keep growing with fellow learners.</p>
+                    <span class="action-link">Join Community <i class="fa-solid fa-arrow-right"></i></span>
+                </a>
 
-                <article class="detail-card">
-                    <div class="detail-icon"><i class="fa-solid fa-headset"></i></div>
+                <a href="mailto:skillforgeacademy5@gmail.com" class="action-card">
+                    <div class="action-icon"><i class="fa-solid fa-headset"></i></div>
                     <h3>Support</h3>
-                    <p>Email: skillforgeacademy5@gmail.com</p>
-                    <p>WhatsApp and Telegram support available.</p>
-                    <a href="mailto:skillforgeacademy5@gmail.com" class="btn btn-secondary">Contact Support</a>
-                </article>
+                    <p>Email and Telegram support are available whenever you need help.</p>
+                    <span class="action-link">Contact Support <i class="fa-solid fa-arrow-right"></i></span>
+                </a>
 
-                <article class="detail-card detail-card-accent">
-                    <div class="detail-icon"><i class="fa-solid fa-certificate"></i></div>
+                <div class="action-card action-card-accent">
+                    <div class="action-icon"><i class="fa-solid fa-certificate"></i></div>
                     <h3>Certificate</h3>
                     <p>Certificate becomes available after completing the course and following the academy flow.</p>
-                    <span class="course-pill"><i class="fa-solid fa-medal"></i> Completion reward</span>
-                </article>
-            </div>
-        </section>
-    </main>
+                    <span class="action-link"><i class="fa-solid fa-medal"></i> Completion reward</span>
+                </div>
+            </section>
+        </main>
+    </div>
 
     <script src="js/script.js"></script>
     <script>
         const params = new URLSearchParams(window.location.search);
         const titleEl = document.getElementById('detailTitle');
         const descEl = document.getElementById('detailDescription');
-        const instructorEl = document.getElementById('detailInstructor');
-        const categoryEl = document.getElementById('detailCategory');
-        const levelEl = document.getElementById('detailLevel');
-        const statusEl = document.getElementById('detailStatus');
         const imageEl = document.getElementById('detailImage');
 
         const courseId = params.get('courseId') || '';
         const courseName = params.get('courseName') || 'Premium Course';
-        const description = params.get('description') || 'Your purchased course is ready to access through our official Telegram experience.';
+        const description = params.get('description') || 'Your purchased course is ready to access through the official Telegram experience.';
         const thumbnail = params.get('thumbnail') || 'images/default.jpg';
 
         const courseMap = {
             web3: {
                 title: 'Web3 Masterclass',
                 description: 'Master blockchain, wallets, DeFi, and modern Web3 opportunities with premium guidance.',
-                instructor: 'Instructor: SkillForge Web3 Team',
-                category: 'Category: Web3 & Blockchain',
-                level: 'Level: Beginner to Advanced',
                 image: 'images/web3.jpg'
             },
             ai: {
                 title: 'AI Productivity',
                 description: 'Learn smart automation, modern workflows, and practical AI systems that increase your output.',
-                instructor: 'Instructor: SkillForge AI Team',
-                category: 'Category: AI & Productivity',
-                level: 'Level: Beginner Friendly',
                 image: 'images/ai.jpg'
             },
             crypto: {
                 title: 'Crypto Trading',
                 description: 'Build disciplined trading habits with practical market analysis and a professional risk strategy.',
-                instructor: 'Instructor: SkillForge Trading Team',
-                category: 'Category: Crypto Trading',
-                level: 'Level: Intermediate',
-                image: 'images/crypto.jog'
+                image: 'images/ai.jpg'
             },
             freelancing: {
                 title: 'Freelancing',
                 description: 'Create a strong client strategy and service offer that helps you earn consistently online.',
-                instructor: 'Instructor: SkillForge Growth Team',
-                category: 'Category: Freelance Growth',
-                level: 'Level: Beginner Friendly',
                 image: 'images/ai.jpg'
             }
         };
@@ -158,22 +119,6 @@
 
         if (descEl) {
             descEl.textContent = selected?.description || description;
-        }
-
-        if (instructorEl) {
-            instructorEl.textContent = selected?.instructor || 'Instructor: SkillForge Team';
-        }
-
-        if (categoryEl) {
-            categoryEl.textContent = selected?.category || 'Category: Premium Course';
-        }
-
-        if (levelEl) {
-            levelEl.textContent = selected?.level || 'Level: Beginner to Advanced';
-        }
-
-        if (statusEl) {
-            statusEl.textContent = 'Payment Status: Confirmed';
         }
 
         if (imageEl) {
