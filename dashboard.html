@@ -1,108 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Dashboard | SkillForge Academy</title>
-
-<link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | SkillForge Digital Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
 </head>
+<body class="dashboard-page">
+    <header class="site-header dashboard-header">
+        <nav class="navbar dashboard-navbar">
+            <a class="logo" href="index.html">
+                <span class="logo-mark"><i class="fa-solid fa-bolt"></i></span>
+                <span>SkillForge</span>
+            </a>
 
-<body>
+            <div class="dashboard-actions">
+                <span id="studentNameHeader" class="user-pill"></span>
+                <a id="logoutBtn" href="index.html" class="btn btn-secondary">Logout</a>
+            </div>
+        </nav>
+    </header>
 
-<header class="navbar">
+    <main class="dashboard-shell">
+        <section class="welcome-card hidden">
+            <div>
+                <span class="section-kicker"><i class="fa-solid fa-user-graduate"></i> Student dashboard</span>
+                <h1>Welcome back, learner.</h1>
+                <p id="studentName">Loading your account...</p>
+            </div>
+            <div class="dashboard-pill-group">
+                <div class="welcome-badge"><i class="fa-solid fa-shield-check"></i><span>Premium access ready</span></div>
+                <div class="welcome-badge welcome-badge-secondary"><i class="fa-brands fa-telegram"></i><span>Your course opens in Telegram</span></div>
+            </div>
+        </section>
 
-<div class="logo">
-🎓 SkillForge Academy
-</div>
+        <section class="section hidden">
+            <div class="section-heading dashboard-heading">
+                <span class="section-kicker"><i class="fa-solid fa-book-open"></i> Purchased access</span>
+                <h2>My Courses</h2>
+            </div>
+            <div id="courseContainer" class="course-list"></div>
+        </section>
 
-<div>
+        <section class="dashboard-grid hidden">
+            <article class="dashboard-support-card">
+                <div class="support-icon"><i class="fa-brands fa-telegram"></i></div>
+                <h3>Official course channel</h3>
+                <p>Stay updated with announcements, reminders, and important course news.</p>
+                <a href="https://t.me/skillforgeweb3bot" target="_blank" rel="noreferrer" class="btn btn-primary">Open Channel</a>
+            </article>
 
-<span id="studentName"></span>
+            <article class="dashboard-support-card">
+                <div class="support-icon"><i class="fa-solid fa-users"></i></div>
+                <h3>SkillForge community</h3>
+                <p>Join a professional network of learners, share progress, and stay motivated.</p>
+                <a href="https://t.me/skillforgeweb3bot" target="_blank" rel="noreferrer" class="btn btn-secondary">Join Community</a>
+            </article>
 
-<a id="logoutBtn" href="index.html" class="btn">
-Logout
-</a>
+            <article class="dashboard-support-card">
+                <div class="support-icon"><i class="fa-solid fa-headset"></i></div>
+                <h3>Support</h3>
+                <p>Email: skillforgeacademy5@gmail.com</p>
+                <p>WhatsApp support available for course questions and account help.</p>
+            </article>
 
-</div>
+            <article class="dashboard-support-card">
+                <div class="support-icon"><i class="fa-solid fa-certificate"></i></div>
+                <h3>Certificate</h3>
+                <p>Certificate available after completing your course and following the academy flow.</p>
+            </article>
+        </section>
+    </main>
 
-</header>
-
-<section class="dashboard">
-
-<h1>
-
-Welcome Back,
-
-<span id="studentNameTitle">
-
-Student
-
-</span>
-
-👋
-
-</h1>
-
-<p>
-
-Keep building your digital future.
-
-</p>
-
-<div class="stats">
-
-<div class="card">
-
-<h2>
-
-🔥
-
-</h2>
-
-<p>
-
-Welcome to SkillForge
-
-</p>
-
-</div>
-
-<div class="card">
-<h2 id="courseCount">0</h2>
-<p>Courses</p>
-</div>
-
-<div class="card">
-<h2 id="certificateCount">0</h2>
-<p>Certificates</p>
-</div>
-
-<div class="card">
-<h2 id="progressPercent">0%</h2>
-<p>Progress</p>
-</div>
-
-</div>
-
-<h2>
-My Courses
-</h2>
-
-<div id="courseContainer" class="dashboard-grid">
-
-Loading courses...
-
-</div>
-
-</section>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-<script src="js/supabase.js"></script>
-<script type="module" src="js/dashboard.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="js/supabase.js"></script>
+    <script type="module" src="js/dashboard.js"></script>
 </body>
-
 </html>

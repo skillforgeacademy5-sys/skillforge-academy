@@ -1,403 +1,307 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-    <title>SkillForge Academy</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillForge Digital Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
-
-    <link rel="stylesheet"
-        href="css/responsive.css">
+    <link rel="stylesheet" href="css/responsive.css">
 </head>
-
 <body>
-
-    <!-- =========================
-         Navigation Bar
-    ========================== -->
-
-    <header>
-
+    <header class="site-header">
         <nav class="navbar">
+            <a class="logo" href="index.html">
+                <span class="logo-mark"><i class="fa-solid fa-bolt"></i></span>
+                <span>SkillForge</span>
+            </a>
 
-            <div class="logo">
-                SkillForge Academy
-            </div>
-<div class="menu-toggle">
+            <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <i class="fa-solid fa-bars"></i>
+            </button>
 
-    ☰
-
-</div>
             <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#courses">Courses</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
 
-<li><a href="#home">Home</a></li>
-
-<li><a href="#courses">Courses</a></li>
-
-<li><a href="#about">About</a></li>
-
-<li><a href="#contact">Contact</a></li>
-
-</ul>
-
-            <a href="courses.html" class="btn">
-                Enroll Now
-            </a>
-
+            <a href="courses.html" class="btn btn-primary">Enroll Now</a>
         </nav>
-
     </header>
-<!-- =========================
-     HERO SECTION
-========================== -->
 
-<section class="hero hidden" id="home">
+    <main id="home">
+        <section class="hero">
+            <div class="hero-content hidden">
+                <span class="section-kicker"><i class="fa-solid fa-sparkles"></i> Premium digital academy</span>
+                <h1>Build real income skills in <span>AI, Web3, and growth</span>.</h1>
+                <p>Learn practical digital skills through premium instruction, secure Paystack payments, and a professional Telegram learning experience that keeps you moving forward.</p>
 
-    <div class="hero-text">
+                <div class="hero-actions">
+                    <a href="courses.html" class="btn btn-primary">Enroll Now</a>
+                    <a href="#courses" class="btn btn-secondary">Browse Courses</a>
+                </div>
 
-        <h1>
-            Empowering Africa with
-            <span>Web3, AI & High-Income Digital Skills</span>
-        </h1>
+                <div class="hero-highlights">
+                    <div><i class="fa-solid fa-circle-check"></i> Telegram support</div>
+                    <div><i class="fa-solid fa-certificate"></i> Certificates included</div>
+                    <div><i class="fa-solid fa-mobile-screen"></i> Mobile-first learning</div>
+                </div>
+            </div>
 
-        <p>
+            <div class="hero-visual hidden">
+                <div class="hero-card">
+                    <img src="images/hero.png" alt="Student learning on SkillForge">
+                    <div class="floating-badge"><i class="fa-solid fa-shield-check"></i> Secure payments</div>
+                    <div class="floating-badge badge-secondary"><i class="fa-solid fa-rocket"></i> Fast access</div>
+                </div>
+            </div>
+        </section>
 
-            Learn practical, income-generating digital skills
-            through premium courses, expert guidance,
-            quizzes, certificates and an active Telegram
-            learning community.
+        <section class="stats">
+            <div class="stat-card hidden">
+                <h2>500+</h2>
+                <p>Students trained</p>
+            </div>
+            <div class="stat-card hidden">
+                <h2>20+</h2>
+                <p>Premium courses</p>
+            </div>
+            <div class="stat-card hidden">
+                <h2>95%</h2>
+                <p>Student satisfaction</p>
+            </div>
+            <div class="stat-card hidden">
+                <h2>24/7</h2>
+                <p>Telegram support</p>
+            </div>
+        </section>
 
-        </p>
+        <section class="section" id="courses">
+            <div class="section-heading hidden">
+                <span class="section-kicker"><i class="fa-solid fa-graduation-cap"></i> Featured learning paths</span>
+                <h2>Choose a premium course that fits your next move.</h2>
+                <p>Every purchase follows the same effortless flow: select, pay securely, access your dashboard, and continue learning inside Telegram.</p>
+            </div>
 
-        <div class="hero-buttons">
+            <div class="course-grid">
+                <article class="course-card hidden">
+                    <div class="course-icon"><i class="fa-solid fa-globe"></i></div>
+                    <h3>Web3 Masterclass</h3>
+                    <p>Learn blockchain, wallets, DeFi, and modern web3 opportunities with confidence.</p>
+                    <div class="course-meta">
+                        <span>₦25,000</span>
+                        <span class="pill">Popular</span>
+                    </div>
+                    <a href="courses.html" class="btn btn-primary">Enroll Now</a>
+                </article>
 
-            <a href="courses.html" class="btn">
+                <article class="course-card hidden">
+                    <div class="course-icon"><i class="fa-solid fa-robot"></i></div>
+                    <h3>AI Productivity</h3>
+                    <p>Master ChatGPT, automation, and prompt strategies that save hours each week.</p>
+                    <div class="course-meta">
+                        <span>₦15,000</span>
+                        <span class="pill">New</span>
+                    </div>
+                    <a href="courses.html" class="btn btn-primary">Enroll Now</a>
+                </article>
 
-                Explore Courses
+                <article class="course-card hidden">
+                    <div class="course-icon"><i class="fa-solid fa-chart-line"></i></div>
+                    <h3>Crypto Trading</h3>
+                    <p>Understand technical analysis, risk management, and disciplined trading strategy.</p>
+                    <div class="course-meta">
+                        <span>₦30,000</span>
+                        <span class="pill">Advanced</span>
+                    </div>
+                    <a href="courses.html" class="btn btn-primary">Enroll Now</a>
+                </article>
 
-            </a>
+                <article class="course-card hidden">
+                    <div class="course-icon"><i class="fa-solid fa-briefcase"></i></div>
+                    <h3>Freelancing</h3>
+                    <p>Build a profitable client strategy for Fiverr, Upwork, and digital service offers.</p>
+                    <div class="course-meta">
+                        <span>₦20,000</span>
+                        <span class="pill">High demand</span>
+                    </div>
+                    <a href="courses.html" class="btn btn-primary">Enroll Now</a>
+                </article>
+            </div>
+        </section>
 
-            <a href="#about" class="btn-secondary">
+        <section class="section section-alt" id="about">
+            <div class="section-heading hidden">
+                <span class="section-kicker"><i class="fa-solid fa-star"></i> Why students choose us</span>
+                <h2>Professional learning designed for modern careers.</h2>
+                <p>Premium content, expert guidance, and a relaxed learning experience built for busy adults and ambitious students.</p>
+            </div>
 
-                Learn More
+            <div class="feature-grid">
+                <article class="feature-card hidden">
+                    <div class="course-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+                    <h3>Expert-led training</h3>
+                    <p>Learn from practical guidance that helps you apply your skills immediately.</p>
+                </article>
+                <article class="feature-card hidden">
+                    <div class="course-icon"><i class="fa-solid fa-certificate"></i></div>
+                    <h3>Certificate-ready learning</h3>
+                    <p>Complete your journey and earn a professional certificate aligned with your course.</p>
+                </article>
+                <article class="feature-card hidden">
+                    <div class="course-icon"><i class="fa-brands fa-telegram"></i></div>
+                    <h3>Telegram community</h3>
+                    <p>Connect with learners, ask questions, and stay inspired through the community hub.</p>
+                </article>
+                <article class="feature-card hidden">
+                    <div class="course-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+                    <h3>Learn anywhere</h3>
+                    <p>Use your phone, tablet, or computer without losing momentum or clarity.</p>
+                </article>
+                <article class="feature-card hidden">
+                    <div class="course-icon"><i class="fa-solid fa-arrows-rotate"></i></div>
+                    <h3>Lifetime updates</h3>
+                    <p>Stay current with future improvements and community updates to your enrolled course.</p>
+                </article>
+                <article class="feature-card hidden">
+                    <div class="course-icon"><i class="fa-solid fa-lock"></i></div>
+                    <h3>Secure payments</h3>
+                    <p>Every checkout is protected, simple, and handled through Paystack.</p>
+                </article>
+            </div>
+        </section>
 
-            </a>
+        <section class="section">
+            <div class="section-heading hidden">
+                <span class="section-kicker"><i class="fa-solid fa-arrow-right-long"></i> How it works</span>
+                <h2>From enrollment to your Telegram learning flow.</h2>
+                <p>The path stays clean, clear, and focused so your learning experience feels effortless.</p>
+            </div>
 
+            <div class="steps-grid">
+                <article class="step-card hidden">
+                    <div class="step-number">1</div>
+                    <h3>Choose a course</h3>
+                    <p>Pick the learning path that fits your goals and current momentum.</p>
+                </article>
+                <article class="step-card hidden">
+                    <div class="step-number">2</div>
+                    <h3>Pay securely</h3>
+                    <p>Complete your purchase safely with the trusted Paystack checkout experience.</p>
+                </article>
+                <article class="step-card hidden">
+                    <div class="step-number">3</div>
+                    <h3>Access your dashboard</h3>
+                    <p>Instantly review your purchases and move to the next step with clarity.</p>
+                </article>
+                <article class="step-card hidden">
+                    <div class="step-number">4</div>
+                    <h3>Open Telegram</h3>
+                    <p>Your course access is delivered through the official SkillForge Telegram experience.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-heading hidden">
+                <span class="section-kicker"><i class="fa-solid fa-quote-left"></i> Student stories</span>
+                <h2>Trusted by learners building real momentum.</h2>
+            </div>
+
+            <div class="testimonial-grid">
+                <article class="testimonial-card hidden">
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p>“SkillForge helped me understand Web3 without the overwhelm. The course flow felt premium and easy to follow.”</p>
+                    <h4>David A.</h4>
+                </article>
+                <article class="testimonial-card hidden">
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p>“The AI course gave me practical systems I could apply right away. The Telegram support made everything smoother.”</p>
+                    <h4>Sarah O.</h4>
+                </article>
+                <article class="testimonial-card hidden">
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p>“I loved how simple the experience was. I purchased, paid, and was guided into the Telegram community without stress.”</p>
+                    <h4>Emmanuel K.</h4>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-heading hidden">
+                <span class="section-kicker"><i class="fa-solid fa-circle-question"></i> Frequently asked questions</span>
+                <h2>Everything you need to know before you begin.</h2>
+            </div>
+
+            <div class="faq-grid">
+                <article class="faq-card hidden">
+                    <h3>Do I get lifetime access?</h3>
+                    <p>Yes. Once your course is purchased, you can continue to access it through your dashboard and Telegram flow.</p>
+                </article>
+                <article class="faq-card hidden">
+                    <h3>Will I receive a certificate?</h3>
+                    <p>Yes. Successful completion of your course path unlocks your certificate experience.</p>
+                </article>
+                <article class="faq-card hidden">
+                    <h3>Can I learn on my phone?</h3>
+                    <p>Absolutely. The interface is mobile-first and optimized for Android and iPhone users.</p>
+                </article>
+                <article class="faq-card hidden">
+                    <h3>How do I join the Telegram community?</h3>
+                    <p>Your dashboard and course access flow guide you directly into the official Telegram experience.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="cta-section hidden">
+            <h2>Ready to build your digital future?</h2>
+            <p>Join SkillForge Digital Academy today and continue your learning in a premium, modern environment built for real growth.</p>
+            <a href="courses.html" class="btn btn-primary">Start Learning Today</a>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <div class="footer-grid">
+            <div>
+                <h3>SkillForge Digital Academy</h3>
+                <p>Premium digital training for modern learners who want real-world skills in AI, Web3, and online business.</p>
+            </div>
+            <div>
+                <h3>Quick links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Connect</h3>
+                <div class="social-links">
+                    <a href="mailto:skillforgeacademy5@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+                    <a href="https://t.me/skillforgeweb3bot" target="_blank" rel="noreferrer" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
+                    <a href="https://wa.me/2340000000000" target="_blank" rel="noreferrer" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+                <p>Email: skillforgeacademy5@gmail.com</p>
+                <p>Telegram: @skillforgeweb3bot</p>
+            </div>
         </div>
-
-    </div>
-
-    <div class="hero-image">
-
-        <img src="images/hero.png"
-             alt="SkillForge Student">
-
-    </div>
-
-</section>
-<!-- =========================
-     STATISTICS SECTION
-========================= -->
-
-<section class="stats hidden">
-
-    <div class="stat-card">
-
-        <h2>500+</h2>
-
-        <p>Students Trained</p>
-
-    </div>
-
-    <div class="stat-card">
-
-        <h2>20+</h2>
-
-        <p>Premium Courses</p>
-
-    </div>
-
-    <div class="stat-card">
-
-        <h2>95%</h2>
-
-        <p>Student Satisfaction</p>
-
-    </div>
-
-    <div class="stat-card">
-
-        <h2>24/7</h2>
-
-        <p>Community Support</p>
-
-    </div>
-
-</section>
-<!-- =========================
-     FEATURED COURSES
-========================= -->
-
-<section class="courses hidden" id="courses">
-
-    <h2 class="section-title">
-        Explore Our Popular Courses
-    </h2>
-
-    <div class="course-container">
-
-        <div class="course-card">
-
-            <h3>🌐 Web3 Masterclass</h3>
-
-            <p>
-                Learn Blockchain, DeFi, Wallets,
-                NFTs and Web3 Opportunities.
-            </p>
-
-            <h4>₦25,000</h4>
-
-            <a href="#courses" class="btn">
-                Enroll Now
-            </a>
-
+        <div class="footer-bottom">
+            <span>© 2026 SkillForge Digital Academy</span>
+            <span>Built for premium, modern learning</span>
         </div>
+    </footer>
 
-        <div class="course-card">
+    <button id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
 
-            <h3>🤖 AI Productivity</h3>
-
-            <p>
-                Master ChatGPT, AI Automation
-                and Prompt Engineering.
-            </p>
-
-            <h4>₦15,000</h4>
-
-            <a href="#courses" class="btn">
-                Enroll Now
-            </a>
-
-        </div>
-
-        <div class="course-card">
-
-            <h3>📈 Crypto Trading</h3>
-
-            <p>
-                Learn Technical Analysis,
-                Risk Management and Trading.
-            </p>
-
-            <h4>₦30,000</h4>
-
-            <a href="#courses" class="btn">
-                Enroll Now
-            </a>
-
-        </div>
-
-        <div class="course-card">
-
-            <h3>💼 Freelancing</h3>
-
-            <p>
-                Build a profitable career
-                on Fiverr and Upwork.
-            </p>
-
-            <h4>₦20,000</h4>
-
-            <a href="#courses" class="btn">
-                Enroll Now
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
-<!-- =========================
-     WHY CHOOSE SKILLFORGE
-========================= -->
-
-<section class="features hidden" id="about">
-
-    <h2 class="section-title">
-        Why Choose SkillForge Academy?
-    </h2>
-
-    <div class="feature-container">
-
-        <div class="feature-card">
-
-            <h3>🎓 Expert-Led Training</h3>
-
-            <p>
-                Learn practical skills from experienced
-                instructors with real-world knowledge.
-            </p>
-
-        </div>
-
-        <div class="feature-card">
-
-            <h3>📜 Certificate of Completion</h3>
-
-            <p>
-                Earn a professional certificate after
-                completing your course successfully.
-            </p>
-
-        </div>
-
-        <div class="feature-card">
-
-            <h3>💬 Telegram Community</h3>
-
-            <p>
-                Join an active Telegram community where
-                you can ask questions and network.
-            </p>
-
-        </div>
-
-        <div class="feature-card">
-
-            <h3>📱 Learn Anywhere</h3>
-
-            <p>
-                Access your courses anytime from your
-                phone, tablet or computer.
-            </p>
-
-        </div>
-
-        <div class="feature-card">
-
-            <h3>🚀 Lifetime Updates</h3>
-
-            <p>
-                Receive future improvements and updates
-                to your enrolled courses.
-            </p>
-
-        </div>
-
-        <div class="feature-card">
-
-            <h3>🔒 Secure Payments</h3>
-
-            <p>
-                Make payments confidently using
-                Paystack's secure payment gateway.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-<!-- =========================
-     HOW IT WORKS
-========================= -->
-
-<section class="steps hidden">
-
-    <h2 class="section-title">
-        How SkillForge Works
-    </h2>
-
-    <div class="steps-container">
-
-        <div class="step">
-
-            <div class="step-number">1</div>
-
-            <h3>Choose a Course</h3>
-
-            <p>
-                Browse our premium digital courses and choose the one that matches your goals.
-            </p>
-
-        </div>
-
-        <div class="step">
-
-            <div class="step-number">2</div>
-
-            <h3>Pay Securely</h3>
-
-            <p>
-                Complete your payment safely using Paystack's secure payment gateway.
-            </p>
-
-        </div>
-
-        <div class="step">
-
-            <div class="step-number">3</div>
-
-            <h3>Access Your Dashboard</h3>
-
-            <p>
-                Instantly access your purchased courses from your personal dashboard.
-            </p>
-
-        </div>
-
-        <div class="step">
-
-            <div class="step-number">4</div>
-
-            <h3>Join Telegram</h3>
-
-            <p>
-                Get access to your exclusive Telegram course community for support and updates.
-            </p>
-
-        </div>
-
-        <div class="step">
-
-            <div class="step-number">5</div>
-
-            <h3>Complete Quizzes</h3>
-
-            <p>
-                Test your knowledge with quizzes at the end of each course module.
-            </p>
-
-        </div>
-
-        <div class="step">
-
-            <div class="step-number">6</div>
-
-            <h3>Earn Your Certificate</h3>
-
-            <p>
-                Successfully complete your course and download your SkillForge certificate.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-<!-- =========================
-     TESTIMONIALS
-========================= -->
-
-<section class="testimonials hidden">
-
-    <h2 class="section-title">
-        What Our Students Say
+    <script src="js/script.js"></script>
+</body>
+</html>
     </h2>
 
     <div class="testimonial-container">

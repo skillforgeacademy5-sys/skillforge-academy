@@ -1,102 +1,73 @@
- // ============================
-// Scroll Animation
-// ============================
+document.addEventListener("DOMContentLoaded", () => {
+    const hiddenElements = document.querySelectorAll(".hidden");
 
-const hiddenElements = document.querySelectorAll(".hidden");
+    if (hiddenElements.length > 0 && "IntersectionObserver" in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("show");
+                }
+            });
+        });
 
-if (hiddenElements.length > 0) {
+        hiddenElements.forEach((element) => observer.observe(element));
+    } else {
+        hiddenElements.forEach((element) => element.classList.add("show"));
+    }
 
-    const observer = new IntersectionObserver((entries) => {
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
 
-        entries.forEach((entry) => {
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener("click", () => {
+            const isOpen = navLinks.classList.toggle("active");
+            menuToggle.setAttribute("aria-expanded", String(isOpen));
+        });
 
-            if (entry.isIntersecting) {
+        navLinks.querySelectorAll("a").forEach((link) => {
+            link.addEventListener("click", () => {
+                navLinks.classList.remove("active");
+                menuToggle.setAttribute("aria-expanded", "false");
+            });
+        });
 
-                entry.target.classList.add("show");
-
+        window.addEventListener("resize", () => {
+            if (window.innerWidth > 760) {
+                navLinks.classList.remove("active");
+                menuToggle.setAttribute("aria-expanded", "false");
             }
+        });
+    }
 
+    const siteHeader = document.querySelector(".site-header");
+
+    if (siteHeader) {
+        window.addEventListener("scroll", () => {
+            siteHeader.classList.toggle("scrolled", window.scrollY > 20);
+        });
+    }
+
+    const backToTop = document.getElementById("backToTop");
+
+    if (backToTop) {
+        window.addEventListener("scroll", () => {
+            backToTop.style.display = window.scrollY > 400 ? "block" : "none";
         });
 
-    });
-
-    hiddenElements.forEach((element) => {
-
-        observer.observe(element);
-
-    });
- 
-}
-
-// ============================
-// Mobile Menu
-// ============================
-
-const menuToggle = document.querySelector(".menu-toggle");
-const navLinks = document.querySelector(".nav-links");
-
-if (menuToggle && navLinks) {
-
-    menuToggle.addEventListener("click", () => {
-
-        navLinks.classList.toggle("active");
-
-    });
-
-}
-
-// ============================
-// Back To Top Button
-// ============================
-
-const backToTop = document.getElementById("backToTop");
-
-if (backToTop) {
-
-    window.addEventListener("scroll", () => {
-
-        if (window.scrollY > 400) {
-
-            backToTop.style.display = "block";
-
-        } else {
-
-            backToTop.style.display = "none";
-
-        }
-
-    });
-
-    backToTop.addEventListener("click", () => {
-
-        window.scrollTo({
-
-            top: 0,
-            behavior: "smooth"
-
+        backToTop.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
         });
+    }
 
+    const buyButtons = document.querySelectorAll(".buy-btn");
+
+    buyButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const course = button.dataset.course;
+            const price = button.dataset.price;
+            const id = button.dataset.id;
+
+            window.location.href = `payment.html?course=${encodeURIComponent(course)}&price=${price}&id=${id}`;
+        });
     });
-
-}
-
-// ============================
-// Buy Now Button
-// ============================
-
-const buyButtons = document.querySelectorAll(".buy-btn");
-
-buyButtons.forEach((button) => {
-
-    button.addEventListener("click", () => {
-
-        const course = button.dataset.course;
-        const price = button.dataset.price;
-        const id = button.dataset.id;
-
-        window.location.href =
-            `payment.html?course=${encodeURIComponent(course)}&price=${price}&id=${id}`;
-
-    });
-
 });

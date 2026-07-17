@@ -1,1976 +1,993 @@
-/* ============================
-   Google Font
-============================ */
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
-html{
-
-scroll-behavior:smooth;
-
+:root {
+    --primary: #0B3C91;
+    --secondary: #FFC107;
+    --accent: #F5F7FB;
+    --text: #14213D;
+    --muted: #5f6c81;
+    --white: #ffffff;
+    --shadow: 0 18px 45px rgba(11, 60, 145, 0.12);
 }
-/* ============================
-   Reset
-============================ */
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    box-sizing: border-box;
 }
-
-body{
-
-font-family:'Poppins',sans-serif;
-
-background:#F8FAFC;
-
-color:#1E293B;
-
-padding-top:90px;
 
+html {
+    scroll-behavior: smooth;
 }
-
-/* ============================
-   Navigation
-============================ */
-
-.navbar{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-padding:18px 8%;
-
-background:rgba(255,255,255,.95);
-
-backdrop-filter:blur(10px);
 
-position:fixed;
-
-top:0;
-
-left:0;
-
-width:100%;
-
-z-index:1000;
-
-box-shadow:0 2px 15px rgba(0,0,0,.08);
-
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    color: var(--text);
+    line-height: 1.6;
+    padding-top: 82px;
+    overflow-x: hidden;
 }
-
-.logo{
-
-    font-size:28px;
 
-    font-weight:700;
-
-    color:#2563EB;
-
+a {
+    color: inherit;
+    text-decoration: none;
 }
-
-.nav-links{
-
-    display:flex;
 
-    list-style:none;
-
-    gap:35px;
-
+img {
+    max-width: 100%;
+    display: block;
 }
-
-.nav-links a{
-
-    text-decoration:none;
 
-    color:#1E293B;
-
-    font-weight:500;
-
-    transition:.3s;
-
+.hidden {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: all 0.7s ease;
 }
-
-.nav-links a:hover{
 
-    color:#2563EB;
-
+.show {
+    opacity: 1;
+    transform: translateY(0);
 }
-
-.btn{
-
-    text-decoration:none;
-
-    background:#2563EB;
 
-    color:white;
-
-    padding:12px 24px;
-
-    border-radius:8px;
-
-    font-weight:600;
-
-    transition:.3s;
-
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: all 0.3s ease;
 }
-
-.btn:hover{
-
-    background:#1D4ED8;
-
-}/*============================
- HERO SECTION
-=============================*/
 
-.hero{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-padding:80px 8%;
-
-min-height:85vh;
-
+.site-header.scrolled {
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 10px 30px rgba(11, 60, 145, 0.08);
 }
-
-.hero-text{
-
-width:55%;
 
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 16px 24px;
 }
 
-.hero-text h1{
-
-font-size:55px;
-
-line-height:1.2;
-
-margin-bottom:25px;
-
+.logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--primary);
 }
 
-.hero-text span{
-
-color:#2563EB;
-
+.logo-mark {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    color: var(--secondary);
+    background: linear-gradient(135deg, rgba(11, 60, 145, 0.14), rgba(255, 193, 7, 0.32));
 }
-
-.hero-text p{
-
-font-size:18px;
 
-line-height:1.8;
-
-margin-bottom:35px;
-
-color:#475569;
-
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
-
-.hero-buttons{
 
-display:flex;
-
-gap:20px;
-
+.nav-links a {
+    color: var(--text);
+    font-weight: 500;
+    transition: color 0.3s ease;
 }
-
-.btn-secondary{
-
-padding:12px 24px;
 
-text-decoration:none;
-
-border:2px solid #2563EB;
-
-color:#2563EB;
-
-border-radius:8px;
-
-font-weight:600;
-
-transition:.3s;
-
+.nav-links a:hover {
+    color: var(--primary);
 }
-
-.btn-secondary:hover{
-
-background:#2563EB;
 
-color:white;
-
+.menu-toggle {
+    display: none;
+    border: none;
+    background: var(--accent);
+    color: var(--primary);
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    cursor: pointer;
 }
-
-.hero-image{
 
-width:40%;
-
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 999px;
+    padding: 12px 20px;
+    font-weight: 600;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
-
-.hero-image img{
-
-width:100%;
-
-}/*============================
- HERO SECTION
-=============================*/
-
-.hero{
-
-display:flex;
 
-justify-content:space-between;
-
-align-items:center;
-
-padding:80px 8%;
-
-min-height:85vh;
-
+.btn:hover {
+    transform: translateY(-2px);
 }
 
-.hero-text{
-
-width:55%;
-
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary), #114ea8);
+    color: var(--white);
+    box-shadow: 0 12px 24px rgba(11, 60, 145, 0.2);
 }
-
-.hero-text h1{
-
-font-size:55px;
 
-line-height:1.2;
-
-margin-bottom:25px;
-
+.btn-secondary {
+    background: var(--white);
+    color: var(--primary);
+    border: 1px solid rgba(11, 60, 145, 0.15);
 }
-
-.hero-text span{
-
-color:#2563EB;
 
+.hero,
+.section,
+.cta-section,
+footer,
+.dashboard-shell {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 24px;
 }
-
-.hero-text p{
-
-font-size:18px;
-
-line-height:1.8;
-
-margin-bottom:35px;
 
-color:#475569;
-
+.hero {
+    display: grid;
+    grid-template-columns: 1.08fr 0.92fr;
+    gap: 32px;
+    align-items: center;
+    min-height: 88vh;
+    padding-top: 48px;
 }
-
-.hero-buttons{
-
-display:flex;
-
-gap:20px;
 
+.hero-content {
+    max-width: 620px;
 }
-
-.btn-secondary{
-
-padding:12px 24px;
-
-text-decoration:none;
-
-border:2px solid #2563EB;
 
-color:#2563EB;
-
-border-radius:8px;
-
-font-weight:600;
-
-transition:.3s;
-
+.section-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    padding: 7px 12px;
+    border-radius: 999px;
+    background: rgba(255, 193, 7, 0.16);
+    color: var(--primary);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
 }
 
-.btn-secondary:hover{
-
-background:#2563EB;
-
-color:white;
-
+.hero h1 {
+    font-size: clamp(2.25rem, 4vw, 3.7rem);
+    line-height: 1.08;
+    margin: 0 0 16px;
 }
-
-.hero-image{
 
-width:40%;
-
+.hero h1 span {
+    color: var(--primary);
 }
-
-.hero-image img{
-
-width:100%;
-
-}/*============================
- HERO SECTION
-=============================*/
-
-.hero{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
 
-padding:80px 8%;
-
-min-height:85vh;
-
+.hero-content p {
+    font-size: 1.03rem;
+    color: var(--muted);
+    margin-bottom: 24px;
 }
-
-.hero-text{
-
-width:55%;
 
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 20px;
 }
-
-.hero-text h1{
-
-font-size:55px;
-
-line-height:1.2;
-
-margin-bottom:25px;
 
+.hero-highlights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    color: var(--muted);
+    font-size: 0.95rem;
 }
 
-.hero-text span{
-
-color:#2563EB;
-
+.hero-highlights div {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: var(--accent);
 }
-
-.hero-text p{
-
-font-size:18px;
 
-line-height:1.8;
-
-margin-bottom:35px;
-
-color:#475569;
-
+.hero-visual {
+    display: flex;
+    justify-content: center;
 }
-
-.hero-buttons{
 
-display:flex;
-
-gap:20px;
-
+.hero-card {
+    position: relative;
+    background: linear-gradient(135deg, rgba(11, 60, 145, 0.07), rgba(255, 193, 7, 0.12));
+    padding: 18px;
+    border-radius: 28px;
+    box-shadow: var(--shadow);
 }
-
-.btn-secondary{
-
-padding:12px 24px;
-
-text-decoration:none;
-
-border:2px solid #2563EB;
-
-color:#2563EB;
-
-border-radius:8px;
 
-font-weight:600;
-
-transition:.3s;
-
+.hero-card img {
+    width: min(100%, 520px);
+    border-radius: 22px;
 }
-
-.btn-secondary:hover{
-
-background:#2563EB;
 
-color:white;
-
+.floating-badge {
+    position: absolute;
+    left: 24px;
+    bottom: 24px;
+    background: rgba(255, 255, 255, 0.96);
+    color: var(--primary);
+    border-radius: 999px;
+    padding: 10px 14px;
+    font-weight: 600;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
 }
-
-.hero-image{
 
-width:40%;
-
+.badge-secondary {
+    left: auto;
+    right: 24px;
+    bottom: 72px;
 }
-
-.hero-image img{
 
-width:100%;
-
-}/*============================
- HERO SECTION
-=============================*/
-
-.hero{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-padding:80px 8%;
-
-min-height:85vh;
-
+.stats {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px 30px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
 }
 
-.hero-text{
-
-width:55%;
-
+.stat-card,
+.course-card,
+.feature-card,
+.step-card,
+.testimonial-card,
+.faq-card,
+.dashboard-support-card,
+.welcome-card,
+.dashboard-course-card {
+    background: var(--white);
+    border: 1px solid rgba(11, 60, 145, 0.08);
+    box-shadow: var(--shadow);
+    border-radius: 24px;
 }
-
-.hero-text h1{
-
-font-size:55px;
 
-line-height:1.2;
-
-margin-bottom:25px;
-
+.stat-card {
+    padding: 20px;
+    text-align: center;
 }
-
-.hero-text span{
-
-color:#2563EB;
 
+.stat-card h2 {
+    margin: 0 0 6px;
+    color: var(--primary);
+    font-size: 1.6rem;
 }
 
-.hero-text p{
-
-font-size:18px;
-
-line-height:1.8;
-
-margin-bottom:35px;
-
-color:#475569;
-
+.stat-card p {
+    margin: 0;
+    color: var(--muted);
 }
-
-.hero-buttons{
-
-display:flex;
-
-gap:20px;
 
+.section {
+    padding-top: 54px;
+    padding-bottom: 8px;
 }
-
-.btn-secondary{
-
-padding:12px 24px;
-
-text-decoration:none;
-
-border:2px solid #2563EB;
-
-color:#2563EB;
-
-border-radius:8px;
-
-font-weight:600;
-
-transition:.3s;
 
+.section-alt {
+    background: linear-gradient(180deg, rgba(245, 247, 251, 0.45), rgba(255, 255, 255, 0));
+    border-radius: 32px;
+    padding: 32px 24px;
 }
 
-.btn-secondary:hover{
-
-background:#2563EB;
-
-color:white;
-
+.section-heading {
+    max-width: 720px;
+    margin-bottom: 24px;
 }
-
-.hero-image{
 
-width:40%;
-
+.section-heading h2 {
+    margin: 0 0 10px;
+    font-size: clamp(1.7rem, 2.5vw, 2.3rem);
 }
-
-.hero-image img{
-
-width:100%;
-
-}/*============================
- HERO SECTION
-=============================*/
 
-.hero{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-padding:80px 8%;
-
-min-height:85vh;
+.section-heading p {
+    margin: 0;
+    color: var(--muted);
+}
 
+.course-grid,
+.feature-grid,
+.steps-grid,
+.testimonial-grid,
+.faq-grid {
+    display: grid;
+    gap: 18px;
 }
 
-.hero-text{
+.course-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
 
-width:55%;
+.feature-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
 
+.steps-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
-.hero-text h1{
+.testimonial-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
 
-font-size:55px;
+.faq-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
 
-line-height:1.2;
+.course-card,
+.feature-card,
+.step-card,
+.testimonial-card,
+.faq-card,
+.dashboard-support-card {
+    padding: 22px;
+}
 
-margin-bottom:25px;
+.course-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
 
+.course-icon,
+.support-icon {
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    color: var(--primary);
+    background: linear-gradient(135deg, rgba(11, 60, 145, 0.14), rgba(255, 193, 7, 0.2));
 }
 
-.hero-text span{
+.course-card h3,
+.feature-card h3,
+.step-card h3,
+.testimonial-card h4,
+.faq-card h3,
+.dashboard-support-card h3 {
+    margin: 0;
+}
 
-color:#2563EB;
+.course-card p,
+.feature-card p,
+.step-card p,
+.testimonial-card p,
+.faq-card p,
+.dashboard-support-card p {
+    margin: 0;
+    color: var(--muted);
+}
 
+.course-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 8px;
 }
 
-.hero-text p{
+.course-meta span {
+    font-weight: 700;
+    color: var(--primary);
+}
 
-font-size:18px;
+.pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(255, 193, 7, 0.18);
+    color: var(--primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
 
-line-height:1.8;
+.stars {
+    color: var(--secondary);
+    margin-bottom: 10px;
+}
 
-margin-bottom:35px;
+.cta-section {
+    margin-top: 26px;
+    padding: 34px 24px;
+    background: linear-gradient(135deg, var(--primary), #114ea8);
+    color: var(--white);
+    border-radius: 28px;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
 
-color:#475569;
+.cta-section h2 {
+    margin: 0 0 10px;
+    font-size: clamp(1.7rem, 3vw, 2.2rem);
+}
 
+.cta-section p {
+    margin: 0 auto 18px;
+    max-width: 660px;
+    color: rgba(255,255,255,0.92);
 }
 
-.hero-buttons{
+.cta-section .btn-primary {
+    background: var(--secondary);
+    color: var(--text);
+    box-shadow: none;
+}
 
-display:flex;
+footer {
+    padding-top: 56px;
+    padding-bottom: 32px;
+    color: var(--muted);
+}
 
-gap:20px;
+.details-page {
+    background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+    padding-top: 96px;
+}
 
+.details-shell {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px 48px;
 }
 
-.btn-secondary{
+.detail-hero {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 24px;
+    align-items: center;
+    padding: 28px;
+    background: linear-gradient(135deg, rgba(11, 60, 145, 0.08), rgba(255, 193, 7, 0.16));
+    border-radius: 32px;
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+}
 
-padding:12px 24px;
+.detail-hero h1 {
+    margin: 0 0 10px;
+    font-size: clamp(2rem, 3.1vw, 2.8rem);
+}
 
-text-decoration:none;
+.detail-hero p {
+    color: var(--muted);
+    margin-bottom: 16px;
+}
 
-border:2px solid #2563EB;
+.detail-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
 
-color:#2563EB;
+.detail-stat-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.86);
+    color: var(--text);
+    font-weight: 600;
+}
 
-border-radius:8px;
+.detail-hero-visual img {
+    width: 100%;
+    border-radius: 24px;
+    box-shadow: 0 14px 30px rgba(11, 60, 145, 0.16);
+}
 
-font-weight:600;
+.detail-section {
+    padding-top: 8px;
+}
 
-transition:.3s;
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
 
+.detail-card {
+    padding: 22px;
+    background: var(--white);
+    border: 1px solid rgba(11, 60, 145, 0.08);
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
-.btn-secondary:hover{
+.detail-card-accent {
+    background: linear-gradient(140deg, rgba(11,60,145,0.04), rgba(255,193,7,0.15));
+}
 
-background:#2563EB;
+.detail-icon {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    color: var(--primary);
+    background: linear-gradient(135deg, rgba(11, 60, 145, 0.14), rgba(255, 193, 7, 0.2));
+}
 
-color:white;
+.dashboard-course-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
+.dashboard-course-top {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
-.hero-image{
+.course-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(255, 193, 7, 0.18);
+    color: var(--primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
 
-width:40%;
+.course-pill-soft {
+    background: rgba(11, 60, 145, 0.08);
+}
 
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr 0.8fr;
+    gap: 22px;
+    padding-bottom: 20px;
 }
 
-.hero-image img{
+.footer-grid h3 {
+    color: var(--text);
+    margin-bottom: 12px;
+}
 
-width:100%;
+.footer-grid ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
 
-}/*============================
-   STATISTICS SECTION
-=============================*/
+.footer-grid li {
+    margin-bottom: 8px;
+}
 
-.stats{
+.footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(11, 60, 145, 0.1);
+}
 
-display:flex;
+.social-links {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
 
-justify-content:space-around;
+.social-links a {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--primary);
+}
 
-align-items:center;
+#backToTop {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    border: none;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--secondary);
+    color: var(--text);
+    cursor: pointer;
+    box-shadow: 0 12px 24px rgba(255, 193, 7, 0.28);
+    display: none;
+}
 
-padding:70px 8%;
+.dashboard-page {
+    background: linear-gradient(180deg, #f7fbff 0%, #ffffff 100%);
+    padding-top: 100px;
+}
 
-background:#2563EB;
+.dashboard-shell {
+    padding-bottom: 40px;
+}
 
-color:white;
+.dashboard-navbar {
+    max-width: 1280px;
+}
 
-flex-wrap:wrap;
+.dashboard-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
-gap:30px;
+.user-pill {
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: rgba(11, 60, 145, 0.08);
+    color: var(--primary);
+    font-weight: 600;
+}
 
+.welcome-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 24px;
+    margin-bottom: 24px;
 }
 
-.stat-card{
+.welcome-card h1 {
+    margin: 8px 0 8px;
+    font-size: clamp(1.6rem, 2.6vw, 2.3rem);
+}
 
-text-align:center;
+.welcome-card p {
+    margin: 0;
+    color: var(--muted);
+}
 
+.dashboard-pill-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-.stat-card h2{
+.welcome-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 14px;
+    border-radius: 999px;
+    background: rgba(255, 193, 7, 0.18);
+    color: var(--primary);
+    font-weight: 700;
+    white-space: nowrap;
+}
 
-font-size:50px;
+.welcome-badge-secondary {
+    background: rgba(11, 60, 145, 0.08);
+}
 
-margin-bottom:10px;
+.dashboard-heading {
+    margin-bottom: 16px;
+}
 
+.course-list {
+    display: grid;
+    gap: 16px;
 }
 
-.stat-card p{
+.dashboard-course-card {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 16px;
+    align-items: center;
+    padding: 16px;
+}
 
-font-size:18px;
+.dashboard-course-thumb {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 16px;
+}
 
-}/*============================
- FEATURED COURSES
-=============================*/
+.dashboard-course-card h3 {
+    margin: 0 0 8px;
+}
 
-.courses{
+.dashboard-course-card p {
+    margin: 0 0 12px;
+    color: var(--muted);
+}
 
-padding:90px 8%;
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 20px;
+}
 
-background:#F8FAFC;
-
-}
-
-.section-title{
-
-text-align:center;
-
-font-size:42px;
-
-margin-bottom:60px;
-
-color:#1E293B;
-
-}
-
-.course-container{
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-
-gap:30px;
-
-}
-
-.course-card{
-
-background:white;
-
-padding:35px;
-
-border-radius:15px;
-
-box-shadow:0 10px 30px rgba(0,0,0,.08);
-
-transition:.3s;
-
-}
-
-.course-card:hover{
-
-transform:translateY(-10px);
-
-}
-
-.course-card h3{
-
-font-size:26px;
-
-margin-bottom:20px;
-
-}
-
-.course-card p{
-
-line-height:1.8;
-
-margin-bottom:25px;
-
-color:#64748B;
-
-}
-
-.course-card h4{
-
-font-size:28px;
-
-color:#2563EB;
-
-margin-bottom:25px;
-
-}/*============================
- WHY CHOOSE SKILLFORGE
-=============================*/
-
-.features{
-
-padding:90px 8%;
-
-background:white;
-
-}
-
-.feature-container{
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-
-gap:30px;
-
-}
-
-.feature-card{
-
-background:#F8FAFC;
-
-padding:35px;
-
-border-radius:15px;
-
-box-shadow:0 8px 20px rgba(0,0,0,.05);
-
-transition:.3s;
-
-}
-
-.feature-card:hover{
-
-transform:translateY(-8px);
-
-}
-
-.feature-card h3{
-
-font-size:24px;
-
-margin-bottom:20px;
-
-color:#2563EB;
-
-}
-
-.feature-card p{
-
-line-height:1.8;
-
-color:#475569;
-
-}/*============================
- HOW IT WORKS
-=============================*/
-
-.steps{
-
-padding:90px 8%;
-
-background:#F8FAFC;
-
-}
-
-.steps-container{
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-
-gap:30px;
-
-}
-
-.step{
-
-background:white;
-
-padding:35px;
-
-border-radius:15px;
-
-text-align:center;
-
-box-shadow:0 8px 20px rgba(0,0,0,.08);
-
-transition:.3s;
-
-}
-
-.step:hover{
-
-transform:translateY(-10px);
-
-}
-
-.step-number{
-
-width:60px;
-
-height:60px;
-
-margin:auto;
-
-margin-bottom:25px;
-
-background:#2563EB;
-
-color:white;
-
-border-radius:50%;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-font-size:24px;
-
-font-weight:bold;
-
-}
-
-.step h3{
-
-margin-bottom:20px;
-
-font-size:24px;
-
-}
-
-.step p{
-
-line-height:1.8;
-
-color:#64748B;
-
-}/*============================
- TESTIMONIALS
-=============================*/
-
-.testimonials{
-
-padding:90px 8%;
-
-background:white;
-
-}
-
-.testimonial-container{
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-
-gap:30px;
-
-}
-
-.testimonial-card{
-
-background:#F8FAFC;
-
-padding:35px;
-
-border-radius:15px;
-
-box-shadow:0 10px 20px rgba(0,0,0,.08);
-
-transition:.3s;
-
-}
-
-.testimonial-card:hover{
-
-transform:translateY(-8px);
-
-}
-
-.stars{
-
-font-size:24px;
-
-margin-bottom:20px;
-
-}
-
-.testimonial-card p{
-
-line-height:1.8;
-
-font-style:italic;
-
-margin-bottom:25px;
-
-color:#475569;
-
-}
-
-.testimonial-card h4{
-
-color:#2563EB;
-
-}/*============================
- FAQ SECTION
-=============================*/
-
-.faq{
-
-padding:90px 8%;
-
-background:#F8FAFC;
-
-}
-
-.faq-container{
-
-display:flex;
-
-flex-direction:column;
-
-gap:25px;
-
-}
-
-.faq-item{
-
-background:white;
-
-padding:30px;
-
-border-radius:15px;
-
-box-shadow:0 8px 20px rgba(0,0,0,.05);
-
-transition:.3s;
-
-}
-
-.faq-item:hover{
-
-transform:translateY(-5px);
-
-}
-
-.faq-item h3{
-
-margin-bottom:15px;
-
-font-size:22px;
-
-color:#2563EB;
-
-}
-
-.faq-item p{
-
-line-height:1.8;
-
-color:#475569;
-
-}/*============================
- CALL TO ACTION
-=============================*/
-
-.cta{
-
-padding:90px 8%;
-
-background:#2563EB;
-
-color:white;
-
-text-align:center;
-
-}
-
-.cta h2{
-
-font-size:45px;
-
-margin-bottom:25px;
-
-}
-
-.cta p{
-
-font-size:18px;
-
-max-width:700px;
-
-margin:auto;
-
-line-height:1.8;
-
-margin-bottom:40px;
-
-}
-
-/*============================
- FOOTER
-=============================*/
-
-footer{
-
-background:#1E293B;
-
-color:white;
-
-padding:70px 8% 30px;
-
-}
-
-.footer-container{
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-
-gap:40px;
-
-margin-bottom:40px;
-
-}
-
-.footer-column h3{
-
-margin-bottom:20px;
-
-}
-
-.footer-column p{
-
-line-height:1.8;
-
-color:#CBD5E1;
-
-}
-
-.footer-column ul{
-
-list-style:none;
-
-}
-
-.footer-column ul li{
-
-margin-bottom:12px;
-
-}
-
-.footer-column a{
-
-text-decoration:none;
-
-color:#CBD5E1;
-
-transition:.3s;
-
-}
-
-.footer-column a:hover{
-
-color:white;
-
-}
-
-footer hr{
-
-border:none;
-
-height:1px;
-
-background:#475569;
-
-margin-bottom:25px;
-
-}
-
-.copyright{
-
-text-align:center;
-
-color:#94A3B8;
-
-}/*============================
- SCROLL ANIMATIONS
-=============================*/
-
-.hidden{
-
-opacity:0;
-
-transform:translateY(60px);
-
-transition:all .8s ease;
-
-}
-
-.show{
-
-opacity:1;
-
-transform:translateY(0);
-
-}/*============================
- MOBILE NAVIGATION
-=============================*/
-
-.menu-toggle{
-
-display:none;
-
-font-size:32px;
-
-cursor:pointer;
-
-font-weight:bold;
-
-}
-
-/* Mobile Screen */
-
-@media (max-width:768px){
-
-.menu-toggle{
-
-display:block;
-
-}
-
-.nav-links{
-
-display:none;
-
-position:absolute;
-
-top:80px;
-
-left:0;
-
-width:100%;
-
-background:white;
-
-flex-direction:column;
-
-padding:25px;
-
-box-shadow:0 10px 20px rgba(0,0,0,.1);
-
-}
-
-.nav-links.active{
-
-display:flex;
-
-}
-
-.btn{
-
-display:none;
-
-}
-
-.hero{
-
-flex-direction:column;
-
-text-align:center;
-
-}
-
-.hero-text{
-
-width:100%;
-
-}
-
-.hero-image{
-
-width:80%;
-
-margin-top:40px;
-
-}
-
-.hero-text h1{
-
-font-size:38px;
-
-}
-
-}/*============================
- BACK TO TOP BUTTON
-=============================*/
-
-#backToTop{
-
-position:fixed;
-
-bottom:25px;
-
-right:25px;
-
-width:55px;
-
-height:55px;
-
-border:none;
-
-border-radius:50%;
-
-background:#2563EB;
-
-color:white;
-
-font-size:24px;
-
-cursor:pointer;
-
-display:none;
-
-box-shadow:0 8px 20px rgba(0,0,0,.2);
-
-transition:.3s;
-
-}
-
-#backToTop:hover{
-
-transform:translateY(-5px);
-
-}/*============================
- COURSES PAGE HEADER
-=============================*/
-
-.courses-page{
-
-padding:120px 8% 70px;
-
-text-align:center;
-
-background:#F8FAFC;
-
-}
-
-.courses-page h1{
-
-font-size:48px;
-
-margin-bottom:20px;
-
-color:#1E293B;
-
+.dashboard-support-card {
+    min-height: 220px;
 }
-
-.courses-page p{
-
-font-size:18px;
-
-max-width:700px;
-
-margin:auto;
-
-line-height:1.8;
-
-color:#64748B;
-
-}/* SEARCH BAR */
 
-.search-box{
-    display:flex;
-    justify-content:center;
-    margin:40px 0 25px;
+.dashboard-support-card .btn {
+    margin-top: 8px;
 }
 
-.search-box input{
-    width:600px;
-    max-width:90%;
-    padding:15px 20px;
-    border:2px solid #E2E8F0;
-    border-radius:10px;
-    font-size:16px;
-    outline:none;
+.courses-page {
+    padding: 120px 8% 70px;
+    text-align: center;
+    background: #f8fbff;
 }
 
-.course-categories{
-    display:flex;
-    justify-content:center;
-    gap:15px;
-    flex-wrap:wrap;
+.courses-page h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: var(--text);
 }
 
-.category{
-    padding:12px 24px;
-    background:#E2E8F0;
-    border:none;
-    border-radius:30px;
-    cursor:pointer;
-    font-weight:600;
-    transition:.3s;
+.courses-page p {
+    font-size: 18px;
+    max-width: 700px;
+    margin: auto;
+    line-height: 1.8;
+    color: var(--muted);
 }
 
-.category:hover,
-.category.active{
-    background:#2563EB;
-    color:white;
-}.search-box {
-    display: flex !important;
-    justify-content: center !important;
-    margin: 40px 0 !important;
+.search-box {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0 25px;
 }
 
 .search-box input {
-    width: 600px !important;
-    max-width: 90% !important;
-    padding: 15px 20px !important;
-    border: 2px solid #2563EB !important;
-    border-radius: 10px !important;
-    font-size: 16px !important;
+    width: 600px;
+    max-width: 90%;
+    padding: 15px 20px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 16px;
+    outline: none;
 }
 
 .course-categories {
-    display: flex !important;
-    justify-content: center !important;
-    gap: 15px !important;
-    margin-top: 25px !important;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
 .category {
-    padding: 12px 22px !important;
-    background: #2563EB !important;
-    color: white !important;
-    border: none !important;
-    border-radius: 30px !important;
-    cursor: pointer !important;
-}/* ==========================
-   COURSE CARDS
-========================== */
-
-.courses-grid{
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-
-gap:30px;
-
-margin-top:50px;
-
+    padding: 12px 22px;
+    background: var(--accent);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s ease;
 }
 
-.course-card{
-
-background:#ffffff;
-
-padding:30px;
-
-border-radius:15px;
-
-box-shadow:0 10px 25px rgba(0,0,0,.08);
-
-text-align:center;
-
-transition:.3s;
-
+.category:hover,
+.category.active {
+    background: var(--primary);
+    color: white;
 }
 
-.course-card:hover{
-
-transform:translateY(-10px);
-
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
 }
 
-.course-card h3{
-
-font-size:30px;
-
-margin-bottom:20px;
-
-color:#0F172A;
-
+.buy-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 15px 35px;
+    border-radius: 999px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
 }
 
-.course-card p{
-
-font-size:17px;
-
-color:#64748B;
-
-line-height:1.7;
-
-margin-bottom:20px;
-
+.buy-btn:hover {
+    background: #1d4ed8;
+    transform: scale(1.03);
 }
 
-.course-card h4{
-
-font-size:35px;
-
-color:#2563EB;
-
-margin-bottom:25px;
-
+.payment-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: #f8fbff;
+    padding: 40px;
 }
 
-.buy-btn{
-
-background:#2563EB;
-
-color:white;
-
-border:none;
-
-padding:15px 35px;
-
-border-radius:8px;
-
-font-size:16px;
-
-font-weight:bold;
-
-cursor:pointer;
-
-transition:.3s;
-
+.payment-card {
+    background: white;
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 15px 40px rgba(0,0,0,.08);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
 }
 
-.buy-btn:hover{
-
-background:#1D4ED8;
-
-transform:scale(1.05);
-
-}/* ==========================
-   COURSE DETAILS
-========================== */
-
-.course-card details{
-
-    margin:20px 0;
-
-    text-align:left;
-
-    background:#F8FAFC;
-
-    border:1px solid #E2E8F0;
-
-    border-radius:12px;
-
-    overflow:hidden;
-
+.payment-card input {
+    width: 100%;
+    padding: 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    margin: 25px 0;
+    font-size: 16px;
 }
 
-.course-card summary{
-
-    padding:15px 20px;
-
-    cursor:pointer;
-
-    font-weight:bold;
-
-    color:#2563EB;
-
-    font-size:17px;
-
-    list-style:none;
-
-    transition:.3s;
-
+#payButton {
+    width: 100%;
+    padding: 18px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
 }
 
-.course-card summary:hover{
-
-    background:#EFF6FF;
-
+#payButton:hover {
+    background: #1d4ed8;
 }
 
-.course-card summary::after{
-
-    content:" ▼";
-
-    float:right;
-
-    transition:.3s;
-
+.secure-note {
+    margin-top: 20px;
+    color: var(--muted);
+    font-size: 14px;
 }
 
-.course-card details[open] summary::after{
-
-    content:" ▲";
-
+.payment-success {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f8fbff;
+    padding: 40px;
 }
 
-.course-card ul{
-
-    padding:15px 30px 20px;
-
-    margin:0;
-
+.success-card {
+    background: white;
+    padding: 60px;
+    border-radius: 25px;
+    text-align: center;
+    max-width: 650px;
+    width: 100%;
+    box-shadow: 0 20px 40px rgba(0,0,0,.08);
 }
 
-.course-card li{
-
-    margin:12px 0;
-
-    color:#475569;
-
-    line-height:1.6;
-
-}.course-card details{
-
-transition:.4s;
-
+.success-card h1 {
+    font-size: 48px;
+    color: #16a34a;
+    margin-bottom: 25px;
 }
 
-.course-card details:hover{
-
-box-shadow:0 8px 20px rgba(37,99,235,.15);
-
-}/* ==========================
-   PAYMENT PAGE
-========================== */
-
-.payment-page{
-
-min-height:100vh;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-flex-direction:column;
-
-background:#F8FAFC;
-
-padding:40px;
-
+.success-card h2 {
+    font-size: 34px;
+    margin: 25px 0;
+    color: var(--primary);
 }
 
-.payment-page h1{
-
-font-size:42px;
-
-margin-bottom:15px;
-
-color:#1E293B;
-
+.success-text {
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 40px;
 }
 
-.payment-page p{
-
-margin-bottom:40px;
-
-color:#64748B;
-
-font-size:18px;
-
-text-align:center;
-
+.course-page {
+    display: flex;
+    min-height: 90vh;
 }
 
-.payment-card{
-
-background:white;
-
-padding:40px;
-
-border-radius:20px;
-
-box-shadow:0 15px 35px rgba(0,0,0,.08);
-
-width:100%;
-
-max-width:500px;
-
-text-align:center;
-
+.sidebar {
+    width: 320px;
+    background: #111827;
+    padding: 20px;
+    color: white;
+    overflow-y: auto;
 }
 
-.payment-card h2{
-
-font-size:28px;
-
-margin-bottom:20px;
-
-color:#1E293B;
-
+.lesson-content {
+    flex: 1;
+    padding: 30px;
 }
 
-.payment-card h3{
-
-font-size:40px;
-
-color:#2563EB;
-
-margin-bottom:30px;
-
+.lesson-item {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background: #f5f5f5;
+    cursor: pointer;
 }
 
-.payment-card input{
-
-width:100%;
-
-padding:16px;
-
-margin-bottom:25px;
-
-border:2px solid #E2E8F0;
-
-border-radius:10px;
-
-font-size:16px;
-
+.lesson-item:hover {
+    background: #e8e8e8;
 }
 
-#payButton{
-
-width:100%;
-
-padding:18px;
-
-background:#2563EB;
-
-color:white;
-
-border:none;
-
-border-radius:10px;
-
-font-size:18px;
-
-font-weight:bold;
-
-cursor:pointer;
-
-transition:.3s;
-
+progress {
+    width: 100%;
+    height: 18px;
 }
 
-#payButton:hover{
-
-background:#1D4ED8;
-
-}.payment-card{
-
-    max-width:500px;
-
-    margin:50px auto;
-
-    background:white;
-
-    padding:40px;
-
-    border-radius:20px;
-
-    box-shadow:0 15px 40px rgba(0,0,0,.08);
-
-    text-align:center;
-
+video {
+    border-radius: 12px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
-.payment-card input{
-
-    width:100%;
-
-    padding:16px;
-
-    border:2px solid #E2E8F0;
-
-    border-radius:12px;
-
-    margin:25px 0;
-
-    font-size:16px;
-
+#pdfDownload {
+    display: inline-block;
+    margin-top: 20px;
 }
 
-#payButton{
-
-    width:100%;
-
-    padding:18px;
-
-    background:#2563EB;
-
-    color:white;
-
-    border:none;
-
-    border-radius:12px;
-
-    font-size:18px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-}
-
-#payButton:hover{
-
-    background:#1D4ED8;
-
-}
-
-.secure-note{
-
-    margin-top:20px;
-
-    color:#64748B;
-
-    font-size:14px;
-
-}/* ==========================
-SUCCESS PAGE
-========================== */
-
-.payment-success{
-
-min-height:100vh;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-background:#F8FAFC;
-
-padding:40px;
-
-}
-
-.success-card{
-
-background:white;
-
-padding:60px;
-
-border-radius:25px;
-
-text-align:center;
-
-max-width:650px;
-
-width:100%;
-
-box-shadow:0 20px 40px rgba(0,0,0,.08);
-
-}
-
-.success-card h1{
-
-font-size:48px;
-
-color:#16A34A;
-
-margin-bottom:25px;
-
-}
-
-.success-card h2{
-
-font-size:34px;
-
-margin:25px 0;
-
-color:#2563EB;
-
-}
-
-.success-text{
-
-font-size:18px;
-
-line-height:1.8;
-
-margin-bottom:40px;
-
-}/*==========================
-DASHBOARD
-==========================*/
-
-.dashboard{
-
-padding:130px 8%;
-
-background:#F8FAFC;
-
-min-height:100vh;
-
-}
-
-.dashboard h1{
-
-font-size:48px;
-
-margin-bottom:15px;
-
-}
-
-.dashboard p{
-
-color:#64748B;
-
-margin-bottom:50px;
-
-}
-
-.dashboard-grid{
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-
-gap:30px;
-
-}
-
-.dashboard-card{
-
-background:white;
-
-padding:35px;
-
-border-radius:18px;
-
-box-shadow:0 10px 30px rgba(0,0,0,.08);
-
-transition:.3s;
-
-}
-
-.dashboard-card:hover{
-
-transform:translateY(-8px);
-
-}
-
-.dashboard-card h2{
-
-margin-bottom:20px;
-
-font-size:28px;
-
-}
-
-.dashboard-card p{
-
-margin-bottom:25px;
-
-}
-
-.dashboard-card .btn{
-
-display:inline-block;
-
-}
-
-.locked{
-
-opacity:.65;
-
-}
-
-.locked button{
-
-padding:15px 30px;
-
-border:none;
-
-background:#CBD5E1;
-
-border-radius:10px;
-
-cursor:not-allowed;
-
-}.course-page{
-    display:flex;
-    min-height:90vh;
+@media (max-width: 768px) {
+    .course-page {
+        flex-direction: column;
     }
 
-    .sidebar{
-    width:320px;
-    background:#111827;
-    padding:20px;
-    color:white;
-    overflow-y:auto;
+    .sidebar {
+        width: 100%;
     }
-
-    .lesson-content{
-    flex:1;
-    padding:30px;
-    }
-
-    .lesson-item{
-    padding:15px;
-    margin-bottom:10px;
-    border-radius:10px;
-    background:#f5f5f5;
-    cursor:pointer;
-    }
-
-    .lesson-item:hover{
-    background:#e8e8e8;
-    }
-
-    progress{
-    width:100%;
-    height:18px;
-    }
-
-    video{
-    border-radius:12px;
-    margin-top:20px;
-    margin-bottom:20px;
-    }
-
-    #pdfDownload{
-    display:inline-block;
-    margin-top:20px;
-    }
-
-    @media(max-width:768px){
-
-    .course-page{
-    flex-direction:column;
-    }
-
-    .sidebar{
-    width:100%;
-    }
-
-    }
+}
 /* ============================= */
 /* DASHBOARD 2.0 */
 /* ============================= */
@@ -2165,4 +1182,388 @@ padding:15px;
 
 }
 
-}
+}/* ===========================
+   COURSE PAGE
+   =========================== */
+
+   .course-content{
+       padding:30px;
+       }
+
+       .course-content h2{
+           font-size:32px;
+               color:#0f2f7d;
+                   margin-bottom:10px;
+                   }
+
+                   .course-content p{
+                       color:#555;
+                           line-height:1.7;
+                               margin-bottom:25px;
+                               }
+
+                               .lesson-card{
+                                   background:#fff;
+                                       border-radius:16px;
+                                           padding:20px;
+                                               margin-bottom:20px;
+                                                   box-shadow:0 8px 24px rgba(0,0,0,.08);
+                                                       transition:.3s;
+                                                       }
+
+                                                       .lesson-card:hover{
+                                                           transform:translateY(-4px);
+                                                           }
+
+                                                           .lesson-title{
+                                                               font-size:22px;
+                                                                   font-weight:700;
+                                                                       margin-bottom:15px;
+                                                                       }
+
+                                                                       .lesson-buttons{
+                                                                           display:flex;
+                                                                               flex-wrap:wrap;
+                                                                                   gap:10px;
+                                                                                   }
+
+                                                                                   .course-btn{
+                                                                                       display:inline-block;
+                                                                                           padding:12px 20px;
+                                                                                               border-radius:10px;
+                                                                                                   text-decoration:none;
+                                                                                                       background:#0f2f7d;
+                                                                                                           color:#fff;
+                                                                                                               font-weight:600;
+                                                                                                                   border:none;
+                                                                                                                       cursor:pointer;
+                                                                                                                           transition:.3s;
+                                                                                                                           }
+
+                                                                                                                           .course-btn:hover{
+                                                                                                                               background:#d4af37;
+                                                                                                                                   color:#111;
+                                                                                                                                   }
+
+                                                                                                                                   .course-actions{
+                                                                                                                                       margin-top:35px;
+                                                                                                                                           display:flex;
+                                                                                                                                               flex-wrap:wrap;
+                                                                                                                                                   gap:15px;
+                                                                                                                                                   }.course-header{
+
+                                                                                                                                                    padding:35px;
+
+                                                                                                                                                    background:#0f2f7d;
+
+                                                                                                                                                    color:white;
+
+                                                                                                                                                    text-align:center;
+
+                                                                                                                                                    }
+
+                                                                                                                                                    .back-btn{
+
+                                                                                                                                                    color:white;
+
+                                                                                                                                                    text-decoration:none;
+
+                                                                                                                                                    font-weight:bold;
+
+                                                                                                                                                    }
+
+                                                                                                                                                    .progress-section{
+
+                                                                                                                                                    padding:25px;
+
+                                                                                                                                                    background:white;
+
+                                                                                                                                                    margin:25px;
+
+                                                                                                                                                    border-radius:15px;
+
+                                                                                                                                                    box-shadow:0 6px 18px rgba(0,0,0,.08);
+
+                                                                                                                                                    }
+
+                                                                                                                                                    .lessons-section{
+
+                                                                                                                                                    padding:25px;
+
+                                                                                                                                                    margin:25px;
+
+                                                                                                                                                    background:white;
+
+                                                                                                                                                    border-radius:15px;
+
+                                                                                                                                                    box-shadow:0 6px 18px rgba(0,0,0,.08);
+
+                                                                                                                                                    }
+
+                                                                                                                                                    .lesson-item{
+
+                                                                                                                                                    padding:18px;
+
+                                                                                                                                                    margin-bottom:15px;
+
+                                                                                                                                                    background:#f8f9fc;
+
+                                                                                                                                                    border-radius:12px;
+
+                                                                                                                                                    cursor:pointer;
+
+                                                                                                                                                    transition:.3s;
+
+                                                                                                                                                    }
+
+                                                                                                                                                    .lesson-item:hover{
+
+                                                                                                                                                    background:#0f2f7d;
+
+                                                                                                                                                    color:white;
+
+                                                                                                                                                    }
+
+                                                                                                                                                    .lesson-viewer{
+
+                                                                                                                                                    padding:25px;
+
+                                                                                                                                                    margin:25px;
+
+                                                                                                                                                    background:white;
+
+                                                                                                                                                    border-radius:15px;
+
+                                                                                                                                                    box-shadow:0 6px 18px rgba(0,0,0,.08);
+
+                                                                                                                                                    }
+
+                                                                                                                                                    .course-btn{
+
+                                                                                                                                                    display:inline-block;
+
+                                                                                                                                                    padding:14px 22px;
+
+                                                                                                                                                    margin:8px;
+
+                                                                                                                                                    background:#0f2f7d;
+
+                                                                                                                                                    color:white;
+
+                                                                                                                                                    text-decoration:none;
+
+                                                                                                                                                    border:none;
+
+                                                                                                                                                    border-radius:10px;
+
+                                                                                                                                                    cursor:pointer;
+
+                                                                                                                                                    font-weight:600;
+
+                                                                                                                                                    transition:.3s;
+
+                                                                                                                                                    }
+
+                                                                                                                                                    .course-btn:hover{
+
+                                                                                                                                                    background:#d4af37;
+
+                                                                                                                                                    color:#111;
+
+                                                                                                                                                    }
+
+                                                                                                                                                    progress{
+
+                                                                                                                                                    width:100%;
+
+                                                                                                                                                    height:22px;
+
+                                                                                                                                                    }.course-dashboard{
+
+                                                                                                                                                        max-width:900px;
+
+                                                                                                                                                        margin:auto;
+
+                                                                                                                                                        padding:30px;
+
+                                                                                                                                                        }
+
+                                                                                                                                                        .action-card{
+
+                                                                                                                                                        background:#fff;
+
+                                                                                                                                                        padding:25px;
+
+                                                                                                                                                        margin-top:20px;
+
+                                                                                                                                                        border-radius:15px;
+
+                                                                                                                                                        box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+                                                                                                                                                        }
+
+                                                                                                                                                        .primary-btn{
+
+                                                                                                                                                        display:inline-block;
+
+                                                                                                                                                        margin-top:15px;
+
+                                                                                                                                                        background:#1b66ff;
+
+                                                                                                                                                        color:#fff;
+
+                                                                                                                                                        padding:14px 28px;
+
+                                                                                                                                                        border-radius:10px;
+
+                                                                                                                                                        text-decoration:none;
+
+                                                                                                                                                        font-weight:600;
+
+                                                                                                                                                        }
+
+                                                                                                                                                        .secondary-btn{
+
+                                                                                                                                                        display:inline-block;
+
+                                                                                                                                                        margin-top:15px;
+
+                                                                                                                                                        background:#f4b400;
+
+                                                                                                                                                        color:#000;
+
+                                                                                                                                                        padding:14px 28px;
+
+                                                                                                                                                        border-radius:10px;
+
+                                                                                                                                                        text-decoration:none;
+
+                                                                                                                                                        font-weight:600;
+
+                                                                                                                                                        }body{
+
+                                                                                                                                                            background:#f6f8fc;
+
+                                                                                                                                                            font-family:Poppins,sans-serif;
+
+                                                                                                                                                            }
+
+                                                                                                                                                            .dashboard-container{
+
+                                                                                                                                                            max-width:1200px;
+
+                                                                                                                                                            margin:auto;
+
+                                                                                                                                                            padding:30px 20px;
+
+                                                                                                                                                            }
+
+                                                                                                                                                            .welcome-card{
+
+                                                                                                                                                            background:linear-gradient(135deg,#0B3C91,#1E88E5);
+
+                                                                                                                                                            color:white;
+
+                                                                                                                                                            padding:35px;
+
+                                                                                                                                                            border-radius:18px;
+
+                                                                                                                                                            margin-bottom:30px;
+
+                                                                                                                                                            box-shadow:0 10px 35px rgba(0,0,0,.15);
+
+                                                                                                                                                            }
+
+                                                                                                                                                            .course-card{
+
+                                                                                                                                                            background:white;
+
+                                                                                                                                                            padding:30px;
+
+                                                                                                                                                            border-radius:18px;
+
+                                                                                                                                                            margin-bottom:30px;
+
+                                                                                                                                                            box-shadow:0 8px 30px rgba(0,0,0,.08);
+
+                                                                                                                                                            }
+
+                                                                                                                                                            .grid{
+
+                                                                                                                                                            display:grid;
+
+                                                                                                                                                            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+                                                                                                                                                            gap:20px;
+
+                                                                                                                                                            }
+
+                                                                                                                                                            .mini-card{
+
+                                                                                                                                                            background:white;
+
+                                                                                                                                                            padding:25px;
+
+                                                                                                                                                            border-radius:18px;
+
+                                                                                                                                                            box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+                                                                                                                                                            transition:.3s;
+
+                                                                                                                                                            }
+
+                                                                                                                                                            .mini-card:hover{
+
+                                                                                                                                                            transform:translateY(-5px);
+
+                                                                                                                                                            }
+
+                                                                                                                                                            .primary-button{
+
+                                                                                                                                                            display:inline-block;
+
+                                                                                                                                                            margin-top:20px;
+
+                                                                                                                                                            padding:14px 30px;
+
+                                                                                                                                                            background:#f4b400;
+
+                                                                                                                                                            color:black;
+
+                                                                                                                                                            font-weight:bold;
+
+                                                                                                                                                            border-radius:10px;
+
+                                                                                                                                                            text-decoration:none;
+
+                                                                                                                                                            }
+
+                                                                                                                                                            .primary-button:hover{
+
+                                                                                                                                                            opacity:.9;
+
+                                                                                                                                                            }.section-title{
+
+                                                                                                                                                                font-size:30px;
+
+                                                                                                                                                                font-weight:700;
+
+                                                                                                                                                                margin:30px 0 20px;
+
+                                                                                                                                                                color:#0B3C91;
+
+                                                                                                                                                                }
+
+                                                                                                                                                                #courseContainer{
+
+                                                                                                                                                                display:grid;
+
+                                                                                                                                                                grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+
+                                                                                                                                                                gap:25px;
+
+                                                                                                                                                                }
+                                                                                                                                                            
+                                                                                                                                                        
+                                                                                                                                            
+                                                                                                                                                   

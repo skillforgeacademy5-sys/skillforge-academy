@@ -1,0 +1,157 @@
+@media (max-width: 1100px) {
+    .course-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .feature-grid,
+    .steps-grid,
+    .testimonial-grid,
+    .faq-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 900px) {
+    .hero {
+        grid-template-columns: 1fr;
+        padding-top: 28px;
+    }
+
+    .hero-content {
+        order: 2;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 760px) {
+    body {
+        padding-top: 74px;
+    }
+
+    .navbar {
+        padding: 12px 16px;
+    }
+
+    .menu-toggle {
+        display: inline-grid;
+        place-items: center;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 70px;
+        left: 16px;
+        right: 16px;
+        padding: 16px;
+        border-radius: 18px;
+        flex-direction: column;
+        align-items: flex-start;
+        background: rgba(255, 255, 255, 0.97);
+        box-shadow: var(--shadow);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-8px);
+        transition: all 0.25s ease;
+    }
+
+    .nav-links.active {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+
+    .navbar .btn-primary {
+        display: none;
+    }
+
+    .hero,
+    .section,
+    .cta-section,
+    footer,
+    .dashboard-shell {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .hero-highlights {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .course-grid,
+    .feature-grid,
+    .steps-grid,
+    .testimonial-grid,
+    .faq-grid,
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .welcome-card,
+    .dashboard-course-card,
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .dashboard-course-card {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-course-thumb {
+        height: 160px;
+    }
+}
+
+@media (max-width: 560px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero-actions .btn,
+    .dashboard-actions .btn {
+        width: 100%;
+    }
+
+    .hero-actions,
+    .dashboard-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .welcome-card,
+    .dashboard-support-card,
+    .course-card,
+    .feature-card,
+    .step-card,
+    .testimonial-card,
+    .faq-card,
+    .detail-card {
+        padding: 18px;
+    }
+
+    .detail-hero {
+        padding: 18px;
+    }
+
+    .detail-meta-grid,
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-course-card {
+        grid-template-columns: 1fr;
+    }
+}
+
