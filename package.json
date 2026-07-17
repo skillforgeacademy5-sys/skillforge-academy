@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/skillforgeacademy5-sys/skillforge-academy#readme",
   "dependencies": {
+    "@getbrevo/brevo": "^6.0.2",
     "@supabase/supabase-js": "^2.110.2",
     "axios": "^1.18.1",
     "cors": "^2.8.6",
