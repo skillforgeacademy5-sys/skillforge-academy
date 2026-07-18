@@ -42,8 +42,6 @@ const supabase = createClient(
 
 const brevo = require("@getbrevo/brevo");
 
-const brevo = require("@getbrevo/brevo");
-
 const apiInstance = new brevo.TransactionalEmailsApi();
 
 const apiKey = apiInstance.authentications["apiKey"];
