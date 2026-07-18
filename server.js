@@ -40,12 +40,14 @@ const supabase = createClient(
 // Brevo
 // ================================
 
-const brevo = require("@getbrevo/brevo");
+const SibApiV3Sdk = require("sib-api-v3-sdk");
 
-const apiInstance = new brevo.TransactionalEmailsApi();
+const defaultClient = SibApiV3Sdk.ApiClient.instance;
 
-const apiKey = apiInstance.authentications["apiKey"];
+const apiKey = defaultClient.authentications["api-key"];
 apiKey.apiKey = process.env.BREVO_API_KEY;
+
+const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 
 console.log("✅ Brevo initialized successfully");
 // ======================================
