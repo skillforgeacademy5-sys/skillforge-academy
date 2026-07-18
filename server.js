@@ -42,12 +42,14 @@ const supabase = createClient(
 
 const brevo = require("@getbrevo/brevo");
 
-const apiInstance = new brevo.BrevoClient();
+const brevo = require("@getbrevo/brevo");
 
-apiInstance.setApiKey(
-  process.env.BREVO_API_KEY
-  );
-  console.log("Brevo initialized successfully");
+const apiInstance = new brevo.TransactionalEmailsApi();
+
+const apiKey = apiInstance.authentications["apiKey"];
+apiKey.apiKey = process.env.BREVO_API_KEY;
+
+console.log("✅ Brevo initialized successfully");
 // ======================================
 // SkillForge Settings
 // ======================================
