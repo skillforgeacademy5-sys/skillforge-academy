@@ -37,16 +37,18 @@ const supabase = createClient(
     process.env.SUPABASE_URL,
     process.env.SUPABASE_SERVICE_ROLE_KEY
 );
-// ======================================
+// ================================
 // Brevo
-// ======================================
+// ================================
 
-// Brevo temporarily disabled
-// const apiInstance = new brevo.TransactionalEmailsApi();
-// apiInstance.setApiKey(
-//     brevo.TransactionalEmailsApiApiKeys.apiKey,
-//     process.env.BREVO_API_KEY
-// );
+const brevo = require("@getbrevo/brevo");
+
+const apiInstance = new brevo.BrevoClient();
+
+apiInstance.setApiKey(
+  process.env.BREVO_API_KEY
+  );
+  console.log("Brevo initialized successfully");
 // ======================================
 // SkillForge Settings
 // ======================================
