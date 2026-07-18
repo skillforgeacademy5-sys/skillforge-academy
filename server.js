@@ -1,6 +1,5 @@
 require("dotenv").config();
 
-const brevo = require("@getbrevo/brevo");
 const express = require("express");
 const cors = require("cors"); 
 const axios = require("axios");
