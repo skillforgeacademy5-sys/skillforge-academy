@@ -17,7 +17,8 @@ document.getElementById("coursePrice").textContent =
 // Backend URL
 // ============================
 
-const BACKEND = window.BACKEND_URL || "https://skillforge-api-octq.onrender.com";
+// Same-origin: served by the same Express server as the frontend
+const BACKEND = "";
 
 // ============================
 // Payment

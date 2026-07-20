@@ -4,18 +4,31 @@ const { TelegramBot } = require("node-telegram-bot-api");
 const { validateAndConsumeToken } = require("../services/tokenService");
 
 const token = process.env.TELEGRAM_BOT_TOKEN;
+
 if (!token) {
   console.error("❌ TELEGRAM_BOT_TOKEN is not set. Bot will not start.");
   module.exports = null;
   return;
 }
 
-const bot = new TelegramBot(token, { polling: true });
+// Create the bot WITHOUT auto-starting polling so we can delete
+// any stale webhook/session first (prevents 409 Conflict on restarts).
+const bot = new TelegramBot(token, { polling: false });
+
+bot
+  .deleteWebhook({ drop_pending_updates: true })
+  .then(() => {
+    bot.startPolling({ restart: false });
+    console.log("🤖 Telegram bot started (polling)");
+  })
+  .catch((err) => {
+    console.error("❌ Failed to start Telegram bot:", err.message);
+  });
 
 // ── /start <access_token> ──────────────────────────────────────────────────
 bot.onText(/\/start ?(.*)/, async (msg, match) => {
   const chatId = msg.chat.id;
-  const param = (match[1] || "").trim();
+  const param  = (match[1] || "").trim();
 
   // No token supplied — generic welcome
   if (!param) {
@@ -42,8 +55,7 @@ bot.onText(/\/start ?(.*)/, async (msg, match) => {
 
       return bot.sendMessage(
         chatId,
-        messages[result.reason] ||
-          "❌ Access denied. Please contact support.",
+        messages[result.reason] || "❌ Access denied. Please contact support.",
         { parse_mode: "Markdown" }
       );
     }
@@ -73,8 +85,17 @@ bot.onText(/\/start ?(.*)/, async (msg, match) => {
 
 // ── Error handling ─────────────────────────────────────────────────────────
 bot.on("polling_error", (err) => {
-  console.error("Telegram polling error:", err.message);
+  // 409 after a clean restart is expected briefly — suppress it
+  if (!err.message.includes("409")) {
+    console.error("Telegram polling error:", err.message);
+  }
 });
 
-console.log("🤖 Telegram bot started (polling)");
+// ── Graceful shutdown ──────────────────────────────────────────────────────
+function stopBot() {
+  bot.stopPolling().catch(() => {});
+}
+process.once("SIGTERM", stopBot);
+process.once("SIGINT",  stopBot);
+
 module.exports = bot;

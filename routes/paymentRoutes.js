@@ -1,10 +1,10 @@
 const express = require("express");
-const axios = require("axios");
+const axios   = require("axios");
 
-const savePurchase = require("../services/purchaseService");
-const sendWelcomeEmail = require("../services/emailService");
+const savePurchase        = require("../services/purchaseService");
+const sendWelcomeEmail    = require("../services/emailService");
 const { generateAccessToken } = require("../services/tokenService");
-const supabase = require("../config/supabase");
+const supabase            = require("../config/supabase");
 
 const router = express.Router();
 
@@ -13,27 +13,40 @@ const SUCCESS_PAGE = process.env.REPLIT_DEV_DOMAIN
   ? `https://${process.env.REPLIT_DEV_DOMAIN}/success.html`
   : "https://skillforgeacademy5-sys.github.io/skillforge-academy/success.html";
 
-const BOT_USERNAME =
-  process.env.TELEGRAM_BOT_USERNAME || "Web3StudentsBot";
+const BOT_USERNAME = process.env.TELEGRAM_BOT_USERNAME || "Web3StudentsBot";
+
+// ─── helpers ─────────────────────────────────────────────────────────────────
+
+function formatDate(iso) {
+  return new Date(iso || Date.now()).toLocaleDateString("en-NG", {
+    year: "numeric", month: "long", day: "numeric",
+  });
+}
+
+function formatAmount(nairaFloat) {
+  return `₦${Number(nairaFloat).toLocaleString("en-NG")}`;
+}
 
 // ============================================================
 // Initialize Payment
 // ============================================================
 router.post("/initialize-payment", async (req, res) => {
   try {
-    const { email, amount, courseName, courseId, telegramLink, fullName } =
-      req.body;
+    const { email, amount, courseName, courseId, fullName } = req.body;
+
+    if (!email || !amount) {
+      return res.status(400).json({ success: false, message: "email and amount are required." });
+    }
 
     const response = await axios.post(
       "https://api.paystack.co/transaction/initialize",
       {
         email,
-        amount: Number(amount) * 100,
+        amount: Math.round(Number(amount) * 100),
         callback_url: SUCCESS_PAGE,
         metadata: {
           courseId,
           courseName,
-          telegramLink,
           fullName: fullName || "",
         },
       },
@@ -46,9 +59,9 @@ router.post("/initialize-payment", async (req, res) => {
     );
 
     res.json({
-      success: true,
+      success:           true,
       authorization_url: response.data.data.authorization_url,
-      reference: response.data.data.reference,
+      reference:         response.data.data.reference,
     });
   } catch (err) {
     console.error("initialize-payment error:", err.response?.data || err.message);
@@ -63,69 +76,95 @@ router.post("/verify-payment", async (req, res) => {
   try {
     const { reference } = req.body;
 
-    // 1. Verify with Paystack
-    const response = await axios.get(
-      `https://api.paystack.co/transaction/verify/${reference}`,
-      {
-        headers: { Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}` },
-      }
-    );
-
-    const payment = response.data.data;
-
-    if (payment.status !== "success") {
-      return res.json({ success: false, message: "Payment failed." });
+    // ── 0. Input validation ────────────────────────────────
+    if (!reference) {
+      return res.status(400).json({ success: false, message: "Payment reference is required." });
     }
 
-    // 2. Guard against duplicate processing
+    // ── 1. Verify with Paystack ────────────────────────────
+    const psResponse = await axios.get(
+      `https://api.paystack.co/transaction/verify/${reference}`,
+      { headers: { Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}` } }
+    );
+
+    const payment = psResponse.data.data;
+
+    if (payment.status !== "success") {
+      return res.json({ success: false, message: "Payment has not been completed." });
+    }
+
+    // ── 2. Duplicate guard ─────────────────────────────────
+    //    Select all columns needed for the response so we can return
+    //    the full data to the success page without a second round-trip.
     const { data: existing } = await supabase
       .from("purchases")
-      .select("id")
+      .select("id, full_name, course_name, amount, reference, purchase_date")
       .eq("reference", payment.reference)
       .maybeSingle();
 
     if (existing) {
-      // Already processed — return success without creating a new token
-      return res.json({ success: true, redirect: SUCCESS_PAGE });
+      // Payment already processed — look up the token that was issued
+      const { data: tokenRecord } = await supabase
+        .from("access_tokens")
+        .select("token, used")
+        .eq("purchase_id", existing.id)
+        .maybeSingle();
+
+      const telegramLink = tokenRecord
+        ? `https://t.me/${BOT_USERNAME}?start=${tokenRecord.token}`
+        : null;
+
+      return res.json({
+        success:      true,
+        alreadyProcessed: true,
+        telegramLink,
+        studentName:  existing.full_name  || payment.customer?.first_name || "Student",
+        courseName:   existing.course_name || payment.metadata?.courseName  || "SkillForge Course",
+        amountPaid:   formatAmount(existing.amount),
+        paymentDate:  formatDate(existing.purchase_date),
+        reference:    existing.reference,
+      });
     }
 
-    // 3. Save the purchase record
+    // ── 3. Save purchase record ────────────────────────────
     const purchase = await savePurchase(payment);
 
-    // 4. Generate a secure one-time access token
+    // ── 4. Generate one-time access token ─────────────────
     const token = await generateAccessToken(purchase.id);
 
-    // 5. Build the Telegram deep link
+    // ── 5. Build Telegram deep link ────────────────────────
     const telegramDeepLink = `https://t.me/${BOT_USERNAME}?start=${token}`;
 
-    // 6. Send the welcome email with the deep link
-    const firstName =
-      purchase.full_name
-        ? purchase.full_name.split(" ")[0]
-        : payment.customer.first_name || "";
+    // ── 6. Send welcome email (non-blocking) ───────────────
+    //    Never let an email failure break the payment response.
+    const firstName = purchase.full_name
+      ? purchase.full_name.split(" ")[0]
+      : payment.customer?.first_name || "";
 
-    await sendWelcomeEmail(
+    sendWelcomeEmail(
       payment.customer.email,
       firstName,
-      payment.metadata.courseName,
+      payment.metadata?.courseName,
       payment.reference,
       telegramDeepLink
-    );
+    ).catch((emailErr) => {
+      console.error("Welcome email failed (non-fatal):", emailErr.message);
+    });
 
-    res.json({
-      success:     true,
+    // ── 7. Respond to the success page ────────────────────
+    return res.json({
+      success:      true,
       telegramLink: telegramDeepLink,
-      studentName:  purchase.full_name || payment.customer.first_name || "Student",
-      courseName:   payment.metadata.courseName || "SkillForge Course",
-      amountPaid:   `₦${(payment.amount / 100).toLocaleString("en-NG")}`,
-      paymentDate:  new Date(payment.paid_at || Date.now()).toLocaleDateString("en-NG", {
-        year: "numeric", month: "long", day: "numeric",
-      }),
+      studentName:  purchase.full_name || payment.customer?.first_name || "Student",
+      courseName:   payment.metadata?.courseName || "SkillForge Course",
+      amountPaid:   formatAmount(payment.amount / 100),
+      paymentDate:  formatDate(payment.paid_at),
       reference:    payment.reference,
     });
+
   } catch (err) {
     console.error("verify-payment error:", err.response?.data || err.message);
-    res.status(500).json({ success: false, message: "Verification failed." });
+    res.status(500).json({ success: false, message: "Verification failed. Please contact support." });
   }
 });
 
