@@ -97,9 +97,16 @@ router.post("/verify-payment", async (req, res) => {
     const telegramDeepLink = `https://t.me/${BOT_USERNAME}?start=${token}`;
 
     // 6. Send the welcome email with the deep link
+    const firstName =
+      purchase.full_name
+        ? purchase.full_name.split(" ")[0]
+        : payment.customer.first_name || "";
+
     await sendWelcomeEmail(
       payment.customer.email,
+      firstName,
       payment.metadata.courseName,
+      payment.reference,
       telegramDeepLink
     );
 
