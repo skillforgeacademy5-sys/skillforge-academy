@@ -112,7 +112,17 @@ router.post("/verify-payment", async (req, res) => {
       telegramDeepLink
     );
 
-    res.json({ success: true, redirect: SUCCESS_PAGE, telegramLink: telegramDeepLink });
+    res.json({
+      success:     true,
+      telegramLink: telegramDeepLink,
+      studentName:  purchase.full_name || payment.customer.first_name || "Student",
+      courseName:   payment.metadata.courseName || "SkillForge Course",
+      amountPaid:   `₦${(payment.amount / 100).toLocaleString("en-NG")}`,
+      paymentDate:  new Date(payment.paid_at || Date.now()).toLocaleDateString("en-NG", {
+        year: "numeric", month: "long", day: "numeric",
+      }),
+      reference:    payment.reference,
+    });
   } catch (err) {
     console.error("verify-payment error:", err.response?.data || err.message);
     res.status(500).json({ success: false, message: "Verification failed." });
