@@ -1,4 +1,5 @@
-const BACKEND_URL = window.BACKEND_URL || "https://skillforge-api-octq.onrender.com";
+// Same-origin: frontend and backend are served by the same Express server
+const BACKEND_URL = "";
 
 const loadingEl    = document.getElementById("loading");
 const errorEl      = document.getElementById("error-state");

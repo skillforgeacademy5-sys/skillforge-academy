@@ -8,8 +8,10 @@ const supabase = require("../config/supabase");
 
 const router = express.Router();
 
-const SUCCESS_PAGE =
-  "https://skillforgeacademy5-sys.github.io/skillforge-academy/success.html";
+// Use the Replit dev domain when running on Replit, otherwise fall back to GitHub Pages
+const SUCCESS_PAGE = process.env.REPLIT_DEV_DOMAIN
+  ? `https://${process.env.REPLIT_DEV_DOMAIN}/success.html`
+  : "https://skillforgeacademy5-sys.github.io/skillforge-academy/success.html";
 
 const BOT_USERNAME =
   process.env.TELEGRAM_BOT_USERNAME || "Web3StudentsBot";
