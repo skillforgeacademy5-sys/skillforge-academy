@@ -1,279 +1,356 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0f172a">
 <title>Payment Successful | SkillForge Digital Academy</title>
 
-<link rel="stylesheet" href="css/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Poppins,sans-serif;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+  -webkit-tap-highlight-color:transparent;
 }
 
 body{
-background:linear-gradient(135deg,#0f172a,#1e3a8a);
-display:flex;
-justify-content:center;
-align-items:center;
-min-height:100vh;
-padding:20px;
+  background:linear-gradient(150deg,#0f172a 0%,#1e3a8a 100%);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  padding:24px 16px 40px;
 }
 
+/* ── Loading state ───────────────────────────────────── */
+#loading{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  min-height:80vh;
+  color:white;
+  gap:20px;
+}
+
+.spinner{
+  width:52px;
+  height:52px;
+  border:4px solid rgba(255,255,255,.2);
+  border-top-color:#fff;
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+}
+
+@keyframes spin{ to{ transform:rotate(360deg); } }
+
+#loading p{
+  font-size:17px;
+  font-weight:500;
+  opacity:.85;
+}
+
+/* ── Card ────────────────────────────────────────────── */
 .success-card{
-
-width:100%;
-max-width:700px;
-background:#ffffff;
-border-radius:25px;
-padding:50px 35px;
-text-align:center;
-box-shadow:0 20px 60px rgba(0,0,0,.25);
-animation:fadeIn .7s ease;
-
+  display:none;
+  width:100%;
+  max-width:600px;
+  background:#ffffff;
+  border-radius:24px;
+  padding:40px 28px 36px;
+  text-align:center;
+  box-shadow:0 24px 64px rgba(0,0,0,.35);
+  animation:riseIn .65s cubic-bezier(.22,1,.36,1) both;
 }
 
-@keyframes fadeIn{
-
-from{
-opacity:0;
-transform:translateY(40px);
+@keyframes riseIn{
+  from{ opacity:0; transform:translateY(36px); }
+  to{   opacity:1; transform:translateY(0);    }
 }
 
-to{
-opacity:1;
-transform:translateY(0);
-}
-
-}
-
+/* ── Checkmark ───────────────────────────────────────── */
 .checkmark{
-
-width:120px;
-height:120px;
-background:#16a34a;
-border-radius:50%;
-margin:auto;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:70px;
-color:white;
-animation:pop .8s;
-
+  width:100px;
+  height:100px;
+  background:linear-gradient(135deg,#16a34a,#22c55e);
+  border-radius:50%;
+  margin:0 auto 24px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:52px;
+  color:white;
+  box-shadow:0 8px 24px rgba(22,163,74,.35);
+  animation:pop .7s cubic-bezier(.34,1.56,.64,1) both;
 }
 
 @keyframes pop{
-
-0%{
-transform:scale(.3);
+  from{ transform:scale(.3); opacity:0; }
+  to{   transform:scale(1);  opacity:1; }
 }
 
-80%{
-transform:scale(1.15);
-}
-
-100%{
-transform:scale(1);
-}
-
-}
-
+/* ── Heading & subtitle ──────────────────────────────── */
 h1{
-
-margin-top:30px;
-font-size:40px;
-color:#0f172a;
-
+  font-size:30px;
+  font-weight:800;
+  color:#0f172a;
+  line-height:1.25;
 }
 
-.subtitle{
-
-margin-top:15px;
-font-size:20px;
-color:#475569;
-line-height:1.8;
-
+.payment-subtitle{
+  margin-top:10px;
+  font-size:16px;
+  color:#475569;
+  line-height:1.7;
 }
 
+/* ── Info checklist ──────────────────────────────────── */
 .info-box{
-
-margin-top:35px;
-background:#f8fafc;
-padding:30px;
-border-radius:18px;
-text-align:left;
-
+  margin-top:28px;
+  background:#f1f5f9;
+  padding:22px 20px;
+  border-radius:16px;
+  text-align:left;
 }
 
 .info-box p{
-
-font-size:17px;
-margin:14px 0;
-color:#334155;
-
+  font-size:15px;
+  color:#334155;
+  line-height:1.5;
+  padding:7px 0;
+  border-bottom:1px solid #e2e8f0;
 }
 
-.notice{
-
-margin-top:30px;
-font-size:18px;
-font-weight:600;
-color:#1d4ed8;
-
+.info-box p:last-child{
+  border-bottom:none;
 }
 
-.button{
-
-display:block;
-width:100%;
-padding:18px;
-border-radius:12px;
-text-decoration:none;
-font-size:18px;
-font-weight:700;
-margin-top:18px;
-transition:.3s;
-
+/* ── CTA section ─────────────────────────────────────── */
+.cta-section{
+  margin-top:28px;
 }
 
-.telegram{
-
-background:#229ED9;
-color:white;
-
+.cta-label{
+  font-size:15px;
+  font-weight:600;
+  color:#0f172a;
+  margin-bottom:12px;
 }
 
-.telegram:hover{
-
-background:#1689c0;
-
+/* PRIMARY button */
+.btn-primary{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  width:100%;
+  min-height:60px;
+  padding:0 20px;
+  background:#0f172a;
+  color:#ffffff;
+  border-radius:16px;
+  text-decoration:none;
+  font-size:18px;
+  font-weight:700;
+  letter-spacing:.3px;
+  transition:background .25s ease, transform .15s ease, box-shadow .25s ease;
+  touch-action:manipulation;
+  cursor:pointer;
+  border:none;
+  box-shadow:0 6px 20px rgba(15,23,42,.3);
 }
 
-.home{
-
-background:#0f172a;
-color:white;
-
+.btn-primary:hover{
+  background:#b8860b;
+  box-shadow:0 8px 28px rgba(184,134,11,.45);
 }
 
-.home:hover{
-
-background:#1e293b;
-
+.btn-primary:active{
+  transform:scale(.97);
 }
 
+.btn-primary svg{
+  flex-shrink:0;
+  width:26px;
+  height:26px;
+}
+
+/* SECONDARY button */
+.btn-secondary{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  margin-top:14px;
+  padding:12px 24px;
+  background:transparent;
+  color:#475569;
+  border:1.5px solid #cbd5e1;
+  border-radius:10px;
+  text-decoration:none;
+  font-size:14px;
+  font-weight:600;
+  transition:background .2s, color .2s, border-color .2s;
+  touch-action:manipulation;
+}
+
+.btn-secondary:hover{
+  background:#f1f5f9;
+  color:#0f172a;
+  border-color:#94a3b8;
+}
+
+/* ── Footer ──────────────────────────────────────────── */
 .footer{
+  margin-top:28px;
+  padding-top:20px;
+  border-top:1px solid #e2e8f0;
+  font-size:13px;
+  color:#94a3b8;
+  line-height:1.8;
+}
 
-margin-top:35px;
-font-size:15px;
-color:#64748b;
+.footer a{
+  color:#64748b;
+  text-decoration:none;
+  font-weight:500;
+}
+
+.footer .tagline{
+  margin-top:10px;
+  font-weight:700;
+  color:#475569;
+  font-size:14px;
+}
+
+/* ── Error state ─────────────────────────────────────── */
+#error-state{
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  min-height:80vh;
+  text-align:center;
+  color:white;
+  padding:20px;
+  gap:16px;
+}
+
+#error-state .error-icon{
+  font-size:56px;
+}
+
+#error-state p{
+  font-size:17px;
+  opacity:.85;
+  max-width:320px;
+  line-height:1.6;
+}
+
+/* ── Android / mobile tweaks ─────────────────────────── */
+@media (max-width:480px){
+
+  body{
+    padding:16px 12px 32px;
+    align-items:flex-start;
+  }
+
+  .success-card{
+    padding:32px 20px 28px;
+    border-radius:20px;
+  }
+
+  h1{
+    font-size:26px;
+  }
+
+  .btn-primary{
+    font-size:17px;
+    min-height:58px;
+    border-radius:14px;
+  }
+
+  .info-box p{
+    font-size:14px;
+  }
 
 }
 
-@media(max-width:600px){
-
-h1{
-font-size:32px;
+@media (max-width:360px){
+  h1{ font-size:23px; }
+  .btn-primary{ font-size:16px; }
 }
-
-.subtitle{
-font-size:17px;
-}
-
-.info-box p{
-font-size:16px;
-}
-
-}
-
 </style>
-
 </head>
 
 <body>
 
-<div class="success-card">
-
-<div class="checkmark">
-✓
+<!-- Loading state -->
+<div id="loading">
+  <div class="spinner"></div>
+  <p>Confirming your payment…</p>
 </div>
 
-<h1>🎉 Payment Successful!</h1>
-
-<p class="subtitle">
-
-Congratulations!
-
-<br><br>
-
-Your payment has been confirmed successfully.
-
-Welcome to <strong>SkillForge Digital Academy.</strong>
-
-</p>
-
-<div class="info-box">
-
-<p>✅ Your payment has been verified successfully.</p>
-
-<p>📧 A welcome email is on its way.</p>
-
-<p>🤖 The email contains your private Telegram Bot access.</p>
-
-<p>📚 Inside the bot you'll receive your course videos, PDFs and resources.</p>
-
-<p>👥 You'll also gain access to the Student Community.</p>
-
-<p>📢 Plus our Official Announcement Channel.</p>
-
+<!-- Error state -->
+<div id="error-state">
+  <div class="error-icon">⚠️</div>
+  <p id="error-msg">We couldn't verify your payment. Please contact support.</p>
 </div>
 
-<p class="notice">
+<!-- Success card (shown after verification) -->
+<div class="success-card" id="success-card">
 
-Go to course 👇.
+  <div class="checkmark">✓</div>
 
-</p>
+  <h1>🎉 Payment Successful!</h1>
 
-<a href="https://t.me/web3studentsbot"
-   class="home-btn"
-      target="_blank"
-         style="display:inline-block; width:100%; max-width:380px;">
-             📲 Open My Course
-             </a>
+  <p class="payment-subtitle">
+    Congratulations! Your payment has been confirmed.<br>
+    Welcome to <strong>SkillForge Digital Academy.</strong>
+  </p>
 
-<a href="index.html" class="button home">
+  <div class="info-box">
+    <p>✅ Payment verified successfully.</p>
+    <p>📧 A welcome email is on its way.</p>
+    <p>🤖 The email contains your private Telegram Bot access link.</p>
+    <p>📚 Inside the bot you'll receive your course videos, PDFs &amp; resources.</p>
+    <p>👥 You'll also gain access to the Student Community.</p>
+    <p>📢 Plus our Official Announcement Channel.</p>
+  </div>
 
-🏠 Continue Exploring Courses
+  <!-- Primary CTA -->
+  <div class="cta-section">
+    <p class="cta-label">Your course is ready. Tap below to begin learning.</p>
 
-</a>
+    <a id="tg-btn" href="#" target="_blank" rel="noopener" class="btn-primary">
+      <!-- Telegram icon SVG -->
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.93 6.77-1.9 8.96c-.14.63-.51.78-.99.48l-2.73-2.01-1.32 1.27c-.15.14-.27.26-.54.26l.19-2.79 5.01-4.53c.22-.19-.05-.3-.33-.11l-6.19 3.9-2.67-.83c-.58-.18-.59-.58.12-.86l10.42-4.02c.48-.17.9.12.73.24z" fill="currentColor"/>
+      </svg>
+      📲 Open My Course
+    </a>
 
-<div class="footer">
+    <!-- Secondary CTA -->
+    <a href="index.html" class="btn-secondary">
+      🏠 Continue Exploring Courses
+    </a>
+  </div>
 
-Need help?
-
-<br><br>
-
-📧 skillforgeacademy5@gmail.com
-
-<br><br>
-
-<b>Learn Smarter. Earn Better. Build Your Future.</b>
-
-</div>
+  <div class="footer">
+    Need help? &nbsp;<a href="mailto:skillforgeacademy5@gmail.com">skillforgeacademy5@gmail.com</a>
+    <p class="tagline">Learn Smarter. Earn Better. Build Your Future.</p>
+  </div>
 
 </div>
 
 <script src="js/success.js"></script>
 
 </body>
-
 </html>

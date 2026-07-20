@@ -9,9 +9,10 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static(__dirname));
 
-// Health check
-app.get("/", (req, res) => {
+// Health check (API only — static middleware handles the root HTML)
+app.get("/api", (req, res) => {
   res.json({ success: true, message: "🚀 SkillForge API Running Successfully" });
 });
 

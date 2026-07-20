@@ -1,52 +1,57 @@
-const status = document.getElementById("status");
+const BACKEND_URL = window.BACKEND_URL || "https://skillforge-api-octq.onrender.com";
 
-const params = new URLSearchParams(window.location.search);
+const loadingEl    = document.getElementById("loading");
+const errorEl      = document.getElementById("error-state");
+const errorMsgEl   = document.getElementById("error-msg");
+const successCard  = document.getElementById("success-card");
+const tgBtn        = document.getElementById("tg-btn");
+
+const params    = new URLSearchParams(window.location.search);
 const reference = params.get("reference");
 
-if (!reference) {
-    status.innerHTML = "Invalid payment reference.";
-        throw new Error("No payment reference.");
-        }
+function showError(msg) {
+  loadingEl.style.display  = "none";
+  errorEl.style.display    = "flex";
+  errorMsgEl.textContent   = msg || "We couldn't verify your payment. Please contact support.";
+}
 
-        verifyPayment(reference);
+// Preview mode — append ?preview=1 to the URL to see the card design
+if (params.get("preview") === "1") {
+  tgBtn.href = "https://t.me/Web3StudentsBot?start=preview";
+  loadingEl.style.display  = "none";
+  successCard.style.display = "block";
+} else if (!reference) {
+  showError("No payment reference found. Please contact support.");
+} else {
+  verifyPayment(reference);
+}
 
-        async function verifyPayment(reference) {
+async function verifyPayment(reference) {
+  try {
+    const response = await fetch(`${BACKEND_URL}/verify-payment`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ reference }),
+    });
 
-            try {
+    const result = await response.json();
 
-                    const response = await fetch(
-                                "https://skillforge-api-octq.onrender.com/verify-payment",
-                                            {
-                                                            method: "POST",
-                                                                            headers: {
-                                                                                                "Content-Type": "application/json"
-                                                                                                                },
-                                                                                                                                body: JSON.stringify({ reference })
-                                                                                                                                            }
-                                                                                                                                                    );
+    if (!result.success) {
+      showError("Payment verification failed. Please contact support.");
+      return;
+    }
 
-                                                                                                                                                            const result = await response.json();
+    // Wire up the "Open My Course" deep link returned by the server
+    if (result.telegramLink) {
+      tgBtn.href = result.telegramLink;
+    }
 
-                                                                                                                                                                    if (!result.success) {
-                                                                                                                                                                                status.innerHTML = "Payment verification failed.";
-                                                                                                                                                                                            return;
-                                                                                                                                                                                                    }
+    // Show the success card
+    loadingEl.style.display  = "none";
+    successCard.style.display = "block";
 
-                                                                                                                                                                                                            // Save student email
-                                                                                                                                                                                                                    localStorage.setItem("studentEmail", result.purchase.email);
-
-                                                                                                                                                                                                                            // Save purchased course
-                                                                                                                                                                                                                                    localStorage.setItem("courseId", result.purchase.course_id);
-
-                                                                                                                                                                                                                                            // Redirect to the new access page
-                                                                                                                                                                                                                                                    window.location.href = "course-access.html";
-
-                                                                                                                                                                                                                                                        } catch (error) {
-
-                                                                                                                                                                                                                                                                console.error(error);
-
-                                                                                                                                                                                                                                                                        status.innerHTML = "Unable to verify payment.";
-
-                                                                                                                                                                                                                                                                            }
-
-                                                                                                                                                                                                                                                                            }
+  } catch (err) {
+    console.error("Verification error:", err);
+    showError("Unable to verify your payment. Please check your connection and try again.");
+  }
+}
