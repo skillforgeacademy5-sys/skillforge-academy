@@ -16,7 +16,7 @@ if (!token) {
 const bot = new TelegramBot(token, { polling: false });
 
 bot
-  .deleteWebhook({ drop_pending_updates: true })
+  .deleteWebhook({ drop_pending_updates: true })   // lowercase 'h' — avoids deprecation warning
   .then(() => {
     bot.startPolling({ restart: false });
     console.log("🤖 Telegram bot started (polling)");

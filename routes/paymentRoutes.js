@@ -104,22 +104,27 @@ router.post("/verify-payment", async (req, res) => {
 
     if (existing) {
       // Payment already processed — look up the token that was issued
-      const { data: tokenRecord } = await supabase
+      let { data: tokenRecord } = await supabase
         .from("access_tokens")
         .select("token, used")
         .eq("purchase_id", existing.id)
         .maybeSingle();
 
-      const telegramLink = tokenRecord
-        ? `https://t.me/${BOT_USERNAME}?start=${tokenRecord.token}`
-        : null;
+      // No token exists yet (e.g. purchase pre-dates the access_tokens migration)
+      // — generate one now so the student always gets a working link
+      if (!tokenRecord) {
+        const newToken = await generateAccessToken(existing.id);
+        tokenRecord = { token: newToken, used: false };
+      }
+
+      const telegramLink = `https://t.me/${BOT_USERNAME}?start=${tokenRecord.token}`;
 
       return res.json({
-        success:      true,
+        success:          true,
         alreadyProcessed: true,
         telegramLink,
-        studentName:  existing.full_name  || payment.customer?.first_name || "Student",
-        courseName:   existing.course_name || payment.metadata?.courseName  || "SkillForge Course",
+        studentName:  existing.full_name   || payment.customer?.first_name || "Student",
+        courseName:   existing.course_name  || payment.metadata?.courseName || "SkillForge Course",
         amountPaid:   formatAmount(existing.amount),
         paymentDate:  formatDate(existing.purchase_date),
         reference:    existing.reference,
